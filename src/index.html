@@ -26,7 +26,11 @@
             </ul>
         </header>
         <div class="main">
-           <iframe src="https://www.youtube.com/embed/1n9LrdUrY5Q" alt="youtube_video" style="margin-right:1rem"></iframe>
+            <div class="iframe-container">
+                <div class="iframe-inner">
+                    <iframe src="https://www.youtube.com/embed/1n9LrdUrY5Q" alt="youtube_video" allowfullscreen></iframe>
+                </div>
+            </div>
            <div class="script">
                 <p id="script-title">Script</p>
                 <p id="script-body" style="white-space: pre-wrap;">
@@ -42,8 +46,7 @@ Nullam nec magna in ante pharetra interdum lobortis id mauris. Integer dolor ant
                 </p>
             </div>
         </div>
-        
-        
+        <script src="https://cdn.jsdelivr.net/npm/comlinkjs@3.0.2/umd/comlink.js" async></script>
         <script src="main.js"></script>
     </body>
 </html>

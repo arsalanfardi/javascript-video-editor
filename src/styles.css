@@ -11,6 +11,8 @@
 
 :root {
     font-size: 100%;
+    --yt-video-height: 458px;
+    --yt-video-width: 814px; 
 }
 
 /* Navbar */
@@ -104,22 +106,38 @@ li {
 
 /* Main area */
 
+.main {
+    margin: 2rem 10rem;
+    display: flex;
+}
+
+.iframe-container {
+    width: 100%;
+    height: 100%;
+}
+
+.iframe-inner {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
 iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     /* Maintain 16:9 aspect ratio */
-    width: 1000px;
-    height: 562.5px;
+    max-width: 50vw;
+    max-height: 28.125vw;
     box-shadow: 0.1rem 0.1rem 0.5rem lightgray;
     border-radius: 0.3125rem;
     border: none;
 }
 
-.main {
-    margin: 2rem 4.5rem;
-    display: inline-block;
-}
-
 div::-webkit-scrollbar {
-    width: 0.25rem;
+    width: 0.1rem;
 }
 
 div::-webkit-scrollbar-track {
@@ -139,14 +157,10 @@ div::-webkit-scrollbar-thumb{
 }
 
 .script {
-    margin-left: 5rem;
-    display: inline-block;
-    overflow: hidden;
-    height: 562.5px;
-    width: 450px;
-    padding-right: 1.5rem; 
-}
-
-.script:hover {
+    margin-left: 2rem;
+    overflow-x: hidden;
     overflow-y: scroll;
+    max-width: 30vw;
+    padding-right: 1rem;
+    max-height: 28.125vw;
 }
