@@ -39,7 +39,7 @@ button {
     cursor: pointer;
 }
 
-.nav__info, .nav__options {
+.header ul {
     list-style: none;
 }
 
@@ -157,10 +157,76 @@ div::-webkit-scrollbar-thumb{
 }
 
 .script {
-    margin-left: 2rem;
+    margin-left: 3rem;
     overflow-x: hidden;
     overflow-y: scroll;
     max-width: 30vw;
     padding-right: 1rem;
     max-height: 28.125vw;
+}
+
+#videoElement {
+    position: absolute;
+    top: 45%;
+    right: 2%;
+    /* 4:3 aspect ratio*/
+	width: 24%;
+    height: auto;
+    background-color: black;
+    border-radius: 0.3125rem;
+    z-index: 1;
+}
+
+/* Footer */
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0.1rem 0.1rem 0.5rem lightgray;
+    height: 25vh;
+    width: 100%;
+}
+
+.footer>.toolbar {
+    display: flex;
+    justify-content: center; /** Pushes left and right item to the far edges */
+    align-items: center;
+    margin: 0.5rem 1.25rem;
+}
+
+.toolbar>.toolbar__left {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.toolbar>.toolbar__center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.toolbar>.toolbar__right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.toolbar button {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    margin-right: 0.25rem;
+}
+
+.toolbar ul {
+    list-style: none;
+}
+
+.timer {
+    margin: 0 1rem;
+    font-size: 1.2rem;
+}
+.fa-circle {
+    color: red;
 }

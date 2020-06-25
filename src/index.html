@@ -29,7 +29,9 @@
             <div class="iframe-container">
                 <div class="iframe-inner">
                     <iframe src="https://www.youtube.com/embed/1n9LrdUrY5Q" alt="youtube_video" allowfullscreen></iframe>
+                    <video autoplay="true" id="videoElement"></video>
                 </div>
+                
             </div>
            <div class="script">
                 <p id="script-title">Script</p>
@@ -46,7 +48,33 @@ Nullam nec magna in ante pharetra interdum lobortis id mauris. Integer dolor ant
                 </p>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/comlinkjs@3.0.2/umd/comlink.js" async></script>
-        <script src="main.js"></script>
+        <div class="footer">
+            <div class="toolbar">
+                <div class="toolbar__left">
+                    <p>Dropdown</p>
+                    <ul>
+                        <li><button class="btn__settings"><i class="fas fa-cut"></i></button></li>
+                        <li><button class="btn__settings"><i class="far fa-clone"></i></button></li>
+                        <li><button class="btn__settings"><i class="far fa-trash-alt"></i></button></li>
+                    </ul>
+                </div>
+                <div class="toolbar__center">
+                    <ul>
+                        <li><button class="btn__settings"><i class="fas fa-step-backward"></i></button></li>
+                        <li><button class="btn__settings"><i class="fas fa-play fa-sm"></i></button></li>
+                        <li><span class="timer">0:00:00</span></li>
+                        <li><button class="btn__settings"><i class="fas fa-circle fa-sm"></i></button></li>
+                        <li><button class="btn__settings"><i class="fas fa-upload"></i></button></li>
+                    </ul>
+                </div>
+                <div class="toolbar__right">
+                    <ul>
+                        <li><button class="btn__settings"><i class="fas fa-minus"></i></button></li>
+                        <li><button class="btn__settings"><i class="fas fa-plus"></i></button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="main.js"></script>
     </body>
 </html>
