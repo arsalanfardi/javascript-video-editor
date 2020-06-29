@@ -185,13 +185,14 @@ div::-webkit-scrollbar-thumb{
     box-shadow: 0.1rem 0.1rem 0.5rem lightgray;
     height: 25vh;
     width: 100%;
+    padding: 0 1.25rem;
 }
 
 .footer>.toolbar {
     display: flex;
-    justify-content: center; /** Pushes left and right item to the far edges */
+    justify-content: center; /* Pushes left and right item to the far edges */
     align-items: center;
-    margin: 0.5rem 1.25rem;
+    margin-top: 0.5rem;
 }
 
 .toolbar>.toolbar__left {
@@ -227,6 +228,33 @@ div::-webkit-scrollbar-thumb{
     margin: 0 1rem;
     font-size: 1.2rem;
 }
+
 .fa-circle {
     color: red;
+}
+
+/* Timeline */
+
+.timeline__ticks {
+    display: flex;
+}
+
+.tick__minor {
+    height: 10px;
+    width: 1px;
+    margin-right: 1rem;
+    background-color: black;
+}
+
+.tick__major {
+    align-items: flex-start;
+    height: 15px;
+    width: 1px;
+    margin-right: 1rem;
+    background-color: black;
+}
+
+.timeline__value {
+    margin-top: 0rem;
+    padding-left: 0;
 }
