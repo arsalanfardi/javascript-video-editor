@@ -15,7 +15,7 @@
     --yt-video-width: 814px; 
 }
 
-/* Navbar */
+/* NAVBAR */
 
 header {
     display: flex;
@@ -104,7 +104,7 @@ li {
     color: black;
 }
 
-/* Main area */
+/* MAIN AREA */
 
 .main {
     margin: 2rem 10rem;
@@ -136,15 +136,16 @@ iframe {
     border: none;
 }
 
-div::-webkit-scrollbar {
+/* Setting applies to every element with a scrollbar */
+::-webkit-scrollbar {
     width: 0.1rem;
 }
 
-div::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background-color: lightgray;
 }
 
-div::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     background-color: gray;
 }
 
@@ -177,7 +178,7 @@ div::-webkit-scrollbar-thumb{
     z-index: 1;
 }
 
-/* Footer */
+/* FOOTER */
 
 .footer {
     position: fixed;
@@ -186,6 +187,7 @@ div::-webkit-scrollbar-thumb{
     height: 25vh;
     width: 100%;
     padding: 0 1.25rem;
+    background-color: white;
 }
 
 .footer>.toolbar {
@@ -235,26 +237,37 @@ div::-webkit-scrollbar-thumb{
 
 /* Timeline */
 
-.timeline__ticks {
+.timeline {
     display: flex;
+    width: 100%;
+    height: 85%;
+    overflow-x: scroll;
+}
+
+.timeline::-webkit-scrollbar {
+    height: 0.6rem;
+}
+
+#timeline__ticks {
+    display: flex;
+    margin-top: 1rem;
 }
 
 .tick__minor {
-    height: 10px;
+    height: 5px;
     width: 1px;
     margin-right: 1rem;
     background-color: black;
 }
 
 .tick__major {
-    align-items: flex-start;
-    height: 15px;
+    height: 10px;
     width: 1px;
     margin-right: 1rem;
     background-color: black;
 }
 
-.timeline__value {
-    margin-top: 0rem;
-    padding-left: 0;
+#timeline__seconds{
+    font-size: 0.8rem;
+    margin-left: 0.1rem;
 }
