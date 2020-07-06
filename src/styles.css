@@ -111,33 +111,30 @@ li {
     display: flex;
 }
 
-.iframe-container {
+.video-container {
     width: 100%;
     height: 100%;
 }
 
-.iframe-inner {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-}
-
-iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
+#sampleVideo {
     width: 100%;
-    height: 100%;
-    /* Maintain 16:9 aspect ratio */
+    height: auto;
     max-width: 50vw;
-    max-height: 28.125vw;
-    box-shadow: 0.1rem 0.1rem 0.5rem lightgray;
-    border-radius: 0.3125rem;
-    border: none;
 }
 
-/* Setting applies to every element with a scrollbar */
-::-webkit-scrollbar {
+#userVideo {
+    position: absolute;
+    top: 35%;
+    right: 35%;
+    /* 4:3 aspect ratio*/
+	width: 15%;
+    height: auto;
+    background-color: black;
+    border-radius: 0.3125rem;
+    z-index: 1;
+}
+
+::-webkit-scrollbar { /* Setting applies to every element with a scrollbar */
     width: 0.1rem;
 }
 
@@ -164,18 +161,6 @@ iframe {
     max-width: 30vw;
     padding-right: 1rem;
     max-height: 28.125vw;
-}
-
-#videoElement {
-    position: absolute;
-    top: 45%;
-    right: 2%;
-    /* 4:3 aspect ratio*/
-	width: 24%;
-    height: auto;
-    background-color: black;
-    border-radius: 0.3125rem;
-    z-index: 1;
 }
 
 /* FOOTER */

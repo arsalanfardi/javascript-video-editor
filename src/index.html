@@ -19,20 +19,20 @@
             </ul>
             <ul class="nav__options">
                 <span class="list__settings">
-                    <li><button class="btn__copy"><i class="fas fa-copy"></i></button></li>
-                    <li><button class="btn__settings"><i class="fas fa-cog"></i></button></li>
+                    <li><button class="btn__copy" id="copyScript"><i class="fas fa-copy"></i></button></li>
+                    <li><button class="btn__settings" id="settings"><i class="fas fa-cog"></i></button></li>
                 </span>
-                <li><button onclick="consoleLog()" class="btn__submit">Submit</button></li>
+                <li><button class="btn__submit">Submit</button></li>
             </ul>
         </header>
         <div class="main">
-            <div class="iframe-container">
-                <div class="iframe-inner">
-                    <iframe src="https://www.youtube.com/embed/1n9LrdUrY5Q" alt="youtube_video" allowfullscreen></iframe>
-                    <video autoplay="true" id="videoElement"></video>
-                </div>
+            <div class="video-container">
+                <video id="sampleVideo" controls>
+                    <source src="../sample-video.mp4" type="video/mp4">
+                </video>
+                <video autoplay="true" id="userVideo" muted></video>
             </div>
-           <div class="script">
+            <div class="script">
                 <p id="script-title">Script</p>
                 <p id="script-body" style="white-space: pre-wrap;">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer orci eros, dapibus malesuada ante quis, faucibus aliquam arcu. Etiam molestie ipsum at quam auctor, vitae aliquet massa laoreet. Donec vitae vulputate leo. In hac habitasse platea dictumst. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla dictum venenatis volutpat. Donec at ante sed risus dictum dapibus in id augue. Morbi purus metus, molestie at sem ut, porttitor laoreet justo. Mauris elementum, ante sed venenatis lacinia, dolor tellus sagittis turpis, ut faucibus felis nunc vitae magna. Mauris varius felis at enim tempus volutpat. Aliquam vel nisl nisl. Pellentesque pharetra ornare nulla, quis dapibus augue tincidunt sit amet.
@@ -68,8 +68,8 @@ Nullam nec magna in ante pharetra interdum lobortis id mauris. Integer dolor ant
                 </div>
                 <div class="toolbar__right">
                     <ul>
-                        <li><button class="btn__settings"><i class="fas fa-minus"></i></button></li>
-                        <li><button class="btn__settings"><i class="fas fa-plus"></i></button></li>
+                        <li><button class="btn__settings"><i class="fas fa-minus" id="zoomOut"></i></button></li>
+                        <li><button class="btn__settings" id="zoomIn"><i class="fas fa-plus"></i></button></li>
                     </ul>
                 </div>
             </div>
@@ -85,6 +85,6 @@ Nullam nec magna in ante pharetra interdum lobortis id mauris. Integer dolor ant
                 </div>
             </div>
         </div>
-        <script type="module" src="main.js"></script>
+        <script type="module" src="js/main.js"></script>
     </body>
 </html>
