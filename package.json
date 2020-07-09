@@ -1,0 +1,22 @@
+{
+  "name": "dubly-app",
+  "version": "0.0.0",
+  "description": "Video editor and file-sharing service for Dubly",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arsalanfardi/dubly-app.git"
+  },
+  "author": "Arsalan Fardi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arsalanfardi/dubly-app/issues"
+  },
+  "homepage": "https://github.com/arsalanfardi/dubly-app#readme",
+  "devDependencies": {
+    "eslint": "^7.4.0"
+  }
+}

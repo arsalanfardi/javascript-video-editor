@@ -1,7 +1,10 @@
 import { dragElement } from './draggable.js';
 
-export function initializeUserVideo() {
-    let video = document.querySelector('#userVideo');
+/* 
+
+*/
+export function initializeUserVideo(id) {
+    let video = document.querySelector(id);
 
     dragElement(video);
 
@@ -11,7 +14,7 @@ export function initializeUserVideo() {
             video.srcObject = stream;
           })
           .catch(function (error) {
-            console.log("Something went wrong!");
+            console.log("Something went wrong!", error);
           });
       }
 }

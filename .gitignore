@@ -1,3 +1,5 @@
-.vscode
 assets
+eslintrc.json
+node_modules
 sample-video.mp4
+.vscode

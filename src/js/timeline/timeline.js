@@ -1,10 +1,10 @@
 export function initializeTimeline() {
     const container = document.getElementsByClassName('timeline')[0];
-    const node = document.getElementById('timeline__element');
+    const node = document.getElementById('timeline-element');
 
     for (let i=1; i<60; i++) {
         let nodeClone = node.cloneNode(true);
-        nodeClone.querySelector('#timeline__seconds').innerHTML = i;
+        nodeClone.querySelector('#timeline-seconds').innerHTML = i;
         container.appendChild(nodeClone);
     }
 
