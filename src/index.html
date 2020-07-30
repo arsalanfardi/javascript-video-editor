@@ -27,12 +27,14 @@
         </header>
         <div class="main">
             <div class="settings-panel">
-                <div class="settings-container">
+                <div id="settings-close"><i class="fas fa-times-circle"></i></div>
+                <div class="settings-container" style="text-align: center;">
                     <video autoplay="true" id="settingsUserVideo" muted></video>
                     <i class="fas fa-video fa-md settings-icon"></i>
-                    <select class="selection-audio" id="video-input"><option value="">Test</option></select>
+                    <select class="selection-audio" id="video-input"></select>
                     <i class="fas fa-microphone fa-lg settings-icon"></i>
                     <select class="selection-audio" name="cars" id="audio-input"></select>
+                    <button class="btn-submit">Save</button>
                 </div>
             </div>
             <div class="video-container">
@@ -71,7 +73,7 @@ Nullam nec magna in ante pharetra interdum lobortis id mauris. Integer dolor ant
                         <li><button class="btn-settings"><i class="fas fa-step-backward"></i></button></li>
                         <li><button class="btn-settings"><i class="fas fa-play fa-sm"></i></button></li>
                         <li><span class="timer">0:00:00</span></li>
-                        <li><button class="btn-settings"><i class="fas fa-circle fa-sm"></i></button></li>
+                        <li><button class="btn-settings" id="btn-record"><i class="fas fa-circle fa-sm"></i></button></li>
                         <li><button class="btn-settings"><i class="fas fa-upload"></i></button></li>
                     </ul>
                 </div>
@@ -83,14 +85,19 @@ Nullam nec magna in ante pharetra interdum lobortis id mauris. Integer dolor ant
                 </div>
             </div>
             <div class="timeline">
-                <div id="timeline-element">
-                    <div id="timeline-ticks">
-                        <div class="tick-major"></div>
-                        <div class="tick-minor"></div>
-                        <div class="tick-minor"></div>
-                        <div class="tick-minor"></div>
+                <div class="seconds-timeline">
+                    <div id="timeline-element">
+                        <div id="timeline-ticks">
+                            <div class="tick-major"></div>
+                            <div class="tick-minor"></div>
+                            <div class="tick-minor"></div>
+                            <div class="tick-minor"></div>
+                        </div>
+                        <div id="timeline-seconds">0</div>
                     </div>
-                    <div id="timeline-seconds">0</div>
+                </div>
+                <div class="class">
+                    <video height="125px" width="auto" style="display: none" controls id="timeline-video" autoplay></video>
                 </div>
             </div>
         </div>
