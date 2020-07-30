@@ -7,7 +7,7 @@ export function createTimeline() {
 
     for (let i=1; i<60; i++) {
         let nodeClone = node.cloneNode(true);
-        nodeClone.querySelector('#timeline-seconds').innerHTML = i;
+        nodeClone.querySelector('#seconds-count').innerHTML = i;
         container.appendChild(nodeClone);
     }
 

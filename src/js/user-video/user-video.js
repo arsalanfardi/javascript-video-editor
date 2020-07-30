@@ -56,7 +56,7 @@ function getUserMedia(video) {
           // Define url for video source
           let videoURL = window.URL.createObjectURL(blob);
           vidSave.src = videoURL; 
-          vidSave.style.display = 'block';
+          vidSave.style.display = 'inline-block';
         }
       })
       .catch(function (error) {
