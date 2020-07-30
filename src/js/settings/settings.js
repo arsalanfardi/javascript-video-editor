@@ -1,4 +1,4 @@
-import { initializeUserVideo } from '../user-video/user-video.js';
+import { startUserVideo } from '../user-video/user-video.js';
 
 /**
  * Binds the event listeners to the settings buttons
@@ -13,7 +13,7 @@ export function initializeSettings() {
  * media options in selection menus
  */
 function openSettings() {
-    initializeUserVideo('#settingsUserVideo');
+    startUserVideo('#settingsUserVideo');
     const audioSelect = document.querySelector('#audio-input');
     const videoSelect = document.querySelector('#video-input');
     // Remove the existing options in the dropdown menus to prevent duplication
@@ -42,7 +42,7 @@ function openSettings() {
 }
 
 /**
- * Closes 
+ * Closes thes settings menu by setting display to none.
  */
 function closeSettings() {
     document.querySelector('.settings-panel').style.display = "none";

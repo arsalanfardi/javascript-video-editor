@@ -1,7 +1,7 @@
 /**
  * Initializes the timeline by replicating the timeline element 60 times and appends a seconds value to each one.
  */
-export function initializeTimeline() {
+export function createTimeline() {
     const container = document.getElementsByClassName('seconds-timeline')[0];
     const node = document.getElementById('timeline-element');
 

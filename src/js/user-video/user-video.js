@@ -5,13 +5,17 @@ import { dragElement } from './draggable.js';
  * prepares the recording capabilties.
  * @param {*} id 
  */
-export function initializeUserVideo(id) {
+export function startUserVideo(id) {
     let video = document.querySelector(id);
 
     dragElement(video);
     getUserMedia(video);
 }
 
+/**
+ * Gets the user's media source and prepares for recording.
+ * @param {*} video the HTML video element
+ */
 function getUserMedia(video) {
   // Recording state
   let recording = false;
