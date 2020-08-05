@@ -20,46 +20,56 @@ export function createTimeline() {
  * and increasing their margins.
  */
 function zoomTimeline() {
-  let cssRuleCode = document.all ? 'rules' : 'cssRules'; // Account for IE and FF
-  // Get CSS stylesheet and adjust margins for the tickMajor/Minor classes
-  const styleSheet = document.styleSheets[0][cssRuleCode];
-  let tickMinor = styleSheet[42].style;
-  let tickMajor = styleSheet[43].style;
-  let marginValue = parseInt(tickMajor['margin-right'].charAt(0)) // Major and minor margins should be the same
+  const ticks = document.querySelectorAll('.tick-major, .tick-minor');
+  const currentMargin = getCurrentMargin();
+
   if (this.id === 'zoomIn') {
-    zoomInTimeline(tickMinor, tickMajor, marginValue)
+    zoomInTimeline(ticks, currentMargin)
   }
   else {
-    zoomOutTimeline(tickMinor, tickMajor, marginValue)
+    zoomOutTimeline(ticks, currentMargin)
   }
 }
 
 /**
  * Zooms in by increasing tick margins by 1 rem up to a maximum of 4 rems.
- * @param {*} tickMajorStyle 
- * @param {*} tickMinorStyle 
- * @param {*} marginValue 
+ * @param {*} ticks array of all the tick mark elements
+ * @param {*} currentMargin the current margin value of the tick marks
  */
-function zoomInTimeline(tickMajorStyle, tickMinorStyle, marginValue) {
+function zoomInTimeline(ticks, currentMargin) {
+  // rem value of maximum zoom
   const maxZoom = 4;
-  if (marginValue < maxZoom) {
-    let newMarginValue = (marginValue + 1) + 'rem'; // Increment by 1 rem
-    tickMajorStyle['margin-right'] = newMarginValue;
-    tickMinorStyle['margin-right'] = newMarginValue;
+  
+  if (currentMargin < maxZoom) {
+    ticks.forEach(element =>
+      element.style.marginRight = (currentMargin + 1) + 'rem'
+    )
   }
 }
 
 /**
  * Zooms out by decreasing tick margins by 1 rem down to a minimum of 1 rem.
- * @param {*} tickMajorStyle 
- * @param {*} tickMinorStyle 
- * @param {*} marginValue 
+ * @param {*} ticks array of all the tick mark elements
+ * @param {*} currentMargin the current margin value of the tick marks
  */
-function zoomOutTimeline(tickMajorStyle, tickMinorStyle, marginValue) {
+function zoomOutTimeline(ticks, currentMargin) {
   const minZoom = 1;
-  if (marginValue > minZoom) {
-    let newMarginValue = (marginValue - 1) + 'rem'; // Decrement by 1 rem
-    tickMajorStyle['margin-right'] = newMarginValue;
-    tickMinorStyle['margin-right'] = newMarginValue;
+  if (currentMargin > minZoom) {
+    ticks.forEach(element =>
+      element.style.marginRight = (currentMargin - 1) + 'rem'
+    )
   }
+}
+
+/**
+ * Returns the current computed margin of the tick marks in units of rem.
+ * 
+ * Major and minor ticks will always have the same margin.
+ */
+export function getCurrentMargin() {
+  const remValue = 16;
+  let majorTick = document.querySelector('.tick-major');
+  const currentMargin = window.getComputedStyle(majorTick).getPropertyValue('margin-right');
+
+  return parseInt(currentMargin)/remValue;
 }
