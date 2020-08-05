@@ -180,6 +180,7 @@ li {
   justify-content: center; /* Pushes left and right item to the far edges */
   align-items: center;
   margin-top: 0.5rem;
+  height: 12.5%;
 }
 
 .toolbar>.toolbar-left {
@@ -220,6 +221,10 @@ li {
   color: red;
 }
 
+.fa-square {
+  color: darkred;
+}
+
 /* TIMELINE */
 
 .timeline {
@@ -230,7 +235,7 @@ li {
 .seconds-timeline {
   display: flex;
   width: 100%;
-  height: 50px;
+  height: 30%;
 }
 
 .timeline::-webkit-scrollbar {
@@ -268,7 +273,15 @@ li {
 .video-timeline {
   display: flex;
   width: 100%;
+  height: 65%;
 }
+
+.recorded-video {
+  height: 100%;
+  width: auto;
+  /* border: 0.5px solid black; */
+}
+
 /* SETTINGS */
 
 .settings-panel {

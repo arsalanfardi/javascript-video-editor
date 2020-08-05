@@ -3,7 +3,7 @@
  */
 export function createTimeline() {
     const container = document.getElementsByClassName('seconds-timeline')[0];
-    const node = document.getElementById('timeline-element');
+    const node = document.querySelector('#timeline-element');
 
     for (let i=1; i<60; i++) {
         let nodeClone = node.cloneNode(true);
@@ -11,8 +11,8 @@ export function createTimeline() {
         container.appendChild(nodeClone);
     }
 
-    document.querySelector('#zoomIn').addEventListener('click', zoomTimeline)
-    document.querySelector('#zoomOut').addEventListener('click', zoomTimeline)
+    document.querySelector('#zoomIn').addEventListener('click', zoomTimeline);
+    document.querySelector('#zoomOut').addEventListener('click', zoomTimeline);
 }
 
 /**
