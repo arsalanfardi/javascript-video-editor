@@ -134,6 +134,10 @@ li {
   z-index: 1;
 }
 
+#userVideo {
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar { /* Setting applies to every element with a scrollbar */
   width: 0.1rem;
 }
@@ -278,8 +282,9 @@ li {
 
 .recorded-video {
   height: 100%;
-  width: auto;
-  /* border: 0.5px solid black; */
+  background: black;
+  /* width: auto; */
+  border: 0.5px solid white;
 }
 
 /* SETTINGS */

@@ -16,8 +16,7 @@ export function createTimeline() {
 }
 
 /**
- * Depending on the button selected, will zoom in or out of the timeline by selecting the timeline tick classes on the stylesheet
- * and increasing their margins.
+ * Depending on the button selected, will zoom in or out of the timeline by increasing the margins of the tick elemnts.
  */
 function zoomTimeline() {
   const ticks = document.querySelectorAll('.tick-major, .tick-minor');

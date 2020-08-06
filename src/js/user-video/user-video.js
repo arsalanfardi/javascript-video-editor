@@ -1,5 +1,8 @@
 import { dragElement } from './draggable.js';
+import { getCurrentMargin } from '../timeline/timeline.js';
+import getBlobDuration from '../../../node_modules/get-blob-duration/src/getBlobDuration.js';
 
+// const getBlobDuration = require('getBlobDuration');
 /**
  * Accesses the user's media sources and assigns the video and audio source to the specified element's ID, then
  * prepares the recording capabilties.
@@ -31,14 +34,16 @@ function getUserMedia(video) {
 
         // Event listener for recording button
         start.addEventListener('click', () => {
-          if(!recording) {
+          if (!recording) {
             mediaRecorder.start();
             recording = true;
             start.className = 'fas fa-square fa-sm';
+            video.style.border = '1px solid red';
           } else {
             mediaRecorder.stop()
             recording = false;
             start.className = 'fas fa-circle fa-sm';
+            video.style.border = 'none'
           }
         })
 
@@ -56,7 +61,7 @@ function getUserMedia(video) {
  * @param {*} mediaRecorder the MediaRecorder object enabling recording of videos
  */
 function recordVideo(mediaRecorder) {
-  let videoTimeline = document.querySelector('.video-timeline');
+  const videoTimeline = document.querySelector('.video-timeline');
 
   // Define array to hold video recording
   let chunks = [];
@@ -70,25 +75,33 @@ function recordVideo(mediaRecorder) {
   mediaRecorder.onstop = () => {
     // Define new binary large object (Blob)
     let blob = new Blob(chunks, { 'type' : 'video/mp4'});
+    
     // Reset chunks array to save memory
     chunks = [];
+
     // Define url for video source
     let videoUrl = window.URL.createObjectURL(blob);
-    let newVideo = createVideo(videoUrl);
-    videoTimeline.appendChild(newVideo);
-    newVideo.play();
+    createVideo(videoUrl, blob).then(newVideo =>
+      videoTimeline.appendChild(newVideo)
+    ).catch(
+      console.log
+    );   
   }
 }
 
 /**
- * Creates an HTML video element.
+ * Asynchronous function to create an HTML video element of appropriate width.
  * @param {*} videoUrl the video source
+ * @return {*} newVideo the recorded-video element
  */
-function createVideo(videoUrl) {
-  let newVideo = document.createElement('video');
+async function createVideo(videoUrl, blob) {
+  const duration = await getBlobDuration(blob);
+  console.log(duration)
+  const newVideo = document.createElement('video');
   newVideo.src = videoUrl;
   newVideo.className = 'recorded-video';
-  // newVideo.setAttribute('controls', 'controls');
-
+  newVideo.style.width = (duration*getCurrentMargin()*16*4) + 'px';
+  newVideo.style.height = '100%';
+  console.log(newVideo.style.width)
   return newVideo;
 }

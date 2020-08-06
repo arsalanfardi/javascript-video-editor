@@ -18,5 +18,8 @@
   "homepage": "https://github.com/arsalanfardi/dubly-app#readme",
   "devDependencies": {
     "eslint": "^7.4.0"
+  },
+  "dependencies": {
+    "get-blob-duration": "^1.1.2"
   }
 }
