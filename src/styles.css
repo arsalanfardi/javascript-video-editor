@@ -289,6 +289,17 @@ li {
 
 /* SETTINGS */
 
+.modal {
+  display: none;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background: black;
+  opacity: 0.5;
+  z-index: 2;
+  top: 0;
+}
+
 .settings-panel {
   display: none;
   position: absolute;
@@ -296,7 +307,7 @@ li {
   width: 400px;
   border-radius: 10px;
   background-color: #ebebeb;
-  z-index: 2;
+  z-index: 3;
   margin: 20px auto;
   left: 0;
   right: 0;
