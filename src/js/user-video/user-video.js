@@ -1,8 +1,10 @@
 import { dragElement } from './draggable.js';
 import { getCurrentMargin } from '../timeline/timeline.js';
 import getBlobDuration from '../../../node_modules/get-blob-duration/src/getBlobDuration.js';
+import { resetTimer, startTimer } from '../timer/timer.js';
 
-// const getBlobDuration = require('getBlobDuration');
+let recordings = [];
+
 /**
  * Accesses the user's media sources and assigns the video and audio source to the specified element's ID, then
  * prepares the recording capabilties.
@@ -39,11 +41,13 @@ function getUserMedia(video) {
             recording = true;
             start.className = 'fas fa-square fa-sm';
             video.style.border = '1px solid red';
+            startTimer();
           } else {
             mediaRecorder.stop()
             recording = false;
             start.className = 'fas fa-circle fa-sm';
-            video.style.border = 'none'
+            video.style.border = 'none';
+            resetTimer();
           }
         })
 
@@ -81,9 +85,10 @@ function recordVideo(mediaRecorder) {
 
     // Define url for video source
     let videoUrl = window.URL.createObjectURL(blob);
-    createVideo(videoUrl, blob).then(newVideo =>
+    createVideo(videoUrl, blob).then(newVideo => {
       videoTimeline.appendChild(newVideo)
-    ).catch(
+      recordings.append(newVideo);
+    }).catch(
       console.log
     );   
   }
@@ -101,7 +106,5 @@ async function createVideo(videoUrl, blob) {
   newVideo.src = videoUrl;
   newVideo.className = 'recorded-video';
   newVideo.style.width = (duration*getCurrentMargin()*16*4) + 'px';
-  newVideo.style.height = '100%';
-  console.log(newVideo.style.width)
   return newVideo;
 }
