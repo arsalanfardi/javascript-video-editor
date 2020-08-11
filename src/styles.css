@@ -238,8 +238,9 @@ li {
 
 .seconds-timeline {
   display: flex;
-  width: 100%;
+  /* width: 100%; */
   height: 30%;
+  overflow-x: visible;
 }
 
 .timeline::-webkit-scrollbar {
@@ -275,15 +276,14 @@ li {
 }
 
 .video-timeline {
-  display: flex;
-  width: 100%;
+  display: inline-flex;
+  /* overflow: auto; */
   height: 65%;
 }
 
 .recorded-video {
   height: 100%;
   background: black;
-  /* width: auto; */
   border: 0.5px solid white;
 }
 

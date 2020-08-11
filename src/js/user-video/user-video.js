@@ -1,5 +1,5 @@
 import { dragElement } from './draggable.js';
-import { getCurrentMargin } from '../timeline/timeline.js';
+import { getTimelineElementWidth, incrementTotalTime } from '../timeline/timeline.js';
 import getBlobDuration from '../../../node_modules/get-blob-duration/src/getBlobDuration.js';
 import { resetTimer, startTimer } from '../timer/timer.js';
 
@@ -86,8 +86,8 @@ function recordVideo(mediaRecorder) {
     // Define url for video source
     let videoUrl = window.URL.createObjectURL(blob);
     createVideo(videoUrl, blob).then(newVideo => {
-      videoTimeline.appendChild(newVideo)
-      recordings.append(newVideo);
+      videoTimeline.appendChild(newVideo);
+      // recordings.append(newVideo);
     }).catch(
       console.log
     );   
@@ -100,11 +100,20 @@ function recordVideo(mediaRecorder) {
  * @return {*} newVideo the recorded-video element
  */
 async function createVideo(videoUrl, blob) {
+  // Get duration of the blob
   const duration = await getBlobDuration(blob);
   console.log(duration)
+
+  // Create new video element
   const newVideo = document.createElement('video');
   newVideo.src = videoUrl;
   newVideo.className = 'recorded-video';
-  newVideo.style.width = (duration*getCurrentMargin()*16*4) + 'px';
+
+  // Width of the video is the current width of a timeline element times the duration of the video in seconds
+  newVideo.style.width = (duration*getTimelineElementWidth()) + 'px';
+  console.log(newVideo.style.width)
+
+  // Increment seconds on timeline if necessary
+  incrementTotalTime(duration);
   return newVideo;
 }
