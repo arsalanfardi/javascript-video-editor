@@ -2,8 +2,7 @@ import { dragElement } from './draggable.js';
 import { getTimelineElementWidth, incrementTotalTime } from '../timeline/timeline.js';
 import getBlobDuration from '../../../node_modules/get-blob-duration/src/getBlobDuration.js';
 import { resetTimer, startTimer } from '../timer/timer.js';
-
-let recordings = [];
+import { addRecording } from '../playback/playback.js';
 
 /**
  * Accesses the user's media sources and assigns the video and audio source to the specified element's ID, then
@@ -25,7 +24,7 @@ function getUserMedia(video) {
   // Recording state
   let recording = false;
   let constraints = { video: true, audio: true };
-  let start = document.getElementById('btn-record');
+  let start = document.getElementById('record');
   
   if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia(constraints)
@@ -87,7 +86,7 @@ function recordVideo(mediaRecorder) {
     let videoUrl = window.URL.createObjectURL(blob);
     createVideo(videoUrl, blob).then(newVideo => {
       videoTimeline.appendChild(newVideo);
-      // recordings.append(newVideo);
+      addRecording(newVideo);
     }).catch(
       console.log
     );   
@@ -102,7 +101,7 @@ function recordVideo(mediaRecorder) {
 async function createVideo(videoUrl, blob) {
   // Get duration of the blob
   const duration = await getBlobDuration(blob);
-  console.log(duration)
+  console.log(duration);
 
   // Create new video element
   const newVideo = document.createElement('video');
@@ -111,7 +110,7 @@ async function createVideo(videoUrl, blob) {
 
   // Width of the video is the current width of a timeline element times the duration of the video in seconds
   newVideo.style.width = (duration*getTimelineElementWidth()) + 'px';
-  console.log(newVideo.style.width)
+  console.log(newVideo.style.width);
 
   // Increment seconds on timeline if necessary
   incrementTotalTime(duration);

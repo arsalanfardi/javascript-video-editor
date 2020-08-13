@@ -8,7 +8,7 @@ let running = 0;
 /**
  * Starts the timer element by getting the current system time and calling the setInterval method every second.
  */
-export function startTimer(){
+export function startTimer() {
   if(!running){
     startTime = new Date().getTime();
     // Update timer every second (1000 ms)  
@@ -21,14 +21,14 @@ export function startTimer(){
 /**
  * Resets the timer by clearing the interval and setting the display to zero time.
  */
-export function resetTimer(){
+export function resetTimer() {
   clearInterval(tInterval);
   difference = 0;
   running = 0;
   timerDisplay.innerHTML = '00:00:00';
 }
 
-function getShowTime(){
+function getShowTime() {
   updatedTime = new Date().getTime();
   difference =  updatedTime - startTime;
 
