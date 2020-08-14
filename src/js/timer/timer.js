@@ -28,6 +28,9 @@ export function resetTimer() {
   timerDisplay.innerHTML = '00:00:00';
 }
 
+/**
+ * Updates the HTML timer element.
+ */
 function getShowTime() {
   updatedTime = new Date().getTime();
   difference =  updatedTime - startTime;
@@ -44,3 +47,4 @@ function getShowTime() {
   // timerDisplay.innerHTML = hours + ':' + minutes + ':' + seconds + ':' + milliseconds;
   timerDisplay.innerHTML = hours + ':' + minutes + ':' + seconds
 }
+

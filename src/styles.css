@@ -284,6 +284,7 @@ li {
   height: 100%;
   background: black;
   border: 0.5px solid white;
+  border-radius: 0.3125rem;
 }
 
 .timeline-scrubber {

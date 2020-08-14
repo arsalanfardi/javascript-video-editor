@@ -1,8 +1,7 @@
-const timeline = document.querySelector('.timeline')
 const container = document.querySelector('.seconds-timeline');
 const node = document.querySelector('#timeline-element');
 /** Tracks the total recorded video time. */
-let totalTime = 0;
+export let totalTime = 0;
 /** The length of the timeline in seconds, initially set at 60. */
 let timelineLength = 60;
 
@@ -66,10 +65,10 @@ function zoomOutTimeline(ticks, currentMargin) {
  * @param {*} seconds the amount of seconds to be added
  */
 export function incrementTotalTime(seconds) {
-  // Increment total time to the nearest upper whole number
-  totalTime += Math.ceil(seconds);
+  totalTime += seconds;
   if (totalTime > timelineLength) {
-    createTimelineElements(timelineLength, totalTime);
+    // Create new timeline elements up to the next whole number
+    createTimelineElements(timelineLength, Math.ceil(totalTime));
     timelineLength = totalTime;
   }
 }
