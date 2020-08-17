@@ -12,7 +12,7 @@ timelineScrubber.style.left = '0';
  * Starts the scrubber by instantiating a new AdjustingInterval class.
  */
 export function startScrubber() {
-  scrubberInterval = new AdjustingInterval(translate, 1000/68);
+  scrubberInterval = new AdjustingInterval(translateScrubber, 1000/68);
   scrubberInterval.start();
 }
 
@@ -28,13 +28,25 @@ export function pauseScrubber() {
  */
 export function resetScrubber() {
   scrubberInterval.stop();
-  reverseScrubberInterval = setInterval(reverseTranslate, 1);
+  reverseScrubberInterval = setInterval(reverseTranslateScrubber, 1);
+}
+
+export function moveScrubberByAmount(amount) {
+  let left = parseFloat(timelineScrubber.style.left);
+  timelineScrubber.style.left = (left + amount) + 'px';
+}
+
+/**
+ * Moves scrubber to a specific pixel position.
+ */
+export function moveScrubberToPosition(position) {
+  timelineScrubber.style.left = position;
 }
 
 /**
  * Stepwise translation of the scrubber back to the original position.
  */
-function reverseTranslate() {
+function reverseTranslateScrubber() {
   let left = parseFloat(timelineScrubber.style.left);
   if (left <= 0) {
     clearInterval(reverseScrubberInterval);
@@ -47,7 +59,7 @@ function reverseTranslate() {
 /**
  * Moves the scrubber forward by one pixel.
  */
-function translate() {
+function translateScrubber() {
   let left = parseFloat(timelineScrubber.style.left);
   if (left <= totalTime*getTimelineElementWidth()) {
     timelineScrubber.style.left = (left+1) + 'px';

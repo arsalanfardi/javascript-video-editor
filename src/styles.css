@@ -287,6 +287,14 @@ li {
   border-radius: 0.3125rem;
 }
 
+#selected-video {
+  border: 3px solid #f5e507;
+}
+
+.recorded-video:hover {
+  cursor: pointer;
+}
+
 .timeline-scrubber {
   display: inline-block;
   background-color: black;

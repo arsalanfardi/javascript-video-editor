@@ -73,6 +73,10 @@ export function incrementTotalTime(seconds) {
   }
 }
 
+export function decrementTotalTime(seconds) {
+  totalTime -= seconds;
+}
+
 /**
  * Constructs a specified number of timeline elements between start and stop seconds.
  * @param {*} startSeconds the integer seconds value to begin at

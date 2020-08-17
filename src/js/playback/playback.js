@@ -1,4 +1,6 @@
-import { pauseScrubber, startScrubber, resetScrubber } from '../timeline/timeline-scrubber.js';
+import { moveScrubberByAmount, pauseScrubber, resetScrubber, startScrubber, moveScrubberToPosition } from '../timeline/timeline-scrubber.js';
+import { getTimelineElementWidth } from '../timeline/timeline.js';
+import { getCumulativeWidthByIndex } from '../user-video/video-manager.js';
 
 /** Array of recorded video elements */
 let recordings = [];
@@ -21,10 +23,43 @@ export function addRecording(videoElement) {
   recordings.push(videoElement);
 }
 
+export function removeRecording(videoElement, duration) {
+  let index = recordings.indexOf(videoElement);
+  if (index > -1) {
+    if (index === rec_index) {
+      removeCurrentVideo(index);
+    } else {
+      // The video to be deleted is either before or after the current playing video,
+      // if before, then reposition scrubber and decrement rec_index
+      if (index < rec_index) {
+        moveScrubberByAmount(-duration*getTimelineElementWidth());
+        rec_index--;
+      }
+      recordings.splice(index, 1);
+    }
+  }
+}
+
+function removeCurrentVideo(index) {
+  recordings.splice(index, 1)[0];
+   // Get the cumulative width up to the video prior to this one
+  let newScrubberPosition = getCumulativeWidthByIndex(index-1) + 'px';
+  // Move scrubber to the new position
+  moveScrubberToPosition(newScrubberPosition);
+  // If this video was the last in the series then pause the timeline,
+  // otherwise keep playing videos if isPlaying is true.
+  if (rec_index === recordings.length) {
+    pause();
+  } else if (isPlaying) {
+    playVideos();
+  }
+}
+
 /**
  * Plays and pauses videos depending on the user selection.
  */
 function togglePlay() {
+  // Check whether videos exist and that there are more to be played
   if (recordings.length != 0 && rec_index < recordings.length) {
     isPlaying = !isPlaying;
     if (isPlaying) {
@@ -32,9 +67,9 @@ function togglePlay() {
       playVideos();
       startScrubber();
     } else {
-      setPlayButtonClass();
+      // Pause the current video
       recordings[rec_index].pause();
-      pauseScrubber();
+      pause();
     }
   }
 }
@@ -43,19 +78,17 @@ function togglePlay() {
  * Recursive function for sequentially playing the videos in the recordings array.
  */
 function playVideos() {
-  if (isPlaying) {
-    const video = recordings[rec_index];
-    video.play();
-    // Once video ends play the next video or pause if at the end
-    video.onended = () => {
-      rec_index++;
-      if (rec_index < recordings.length) {
-        playVideos();
-      } else {
-        pauseScrubber();
-        isPlaying = false;
-        setPlayButtonClass();
-      }
+  const video = recordings[rec_index];
+  video.play();
+  // Once video ends play the next video or pause if at the end
+  video.onended = () => {
+    // Increment rec_index on video end.
+    rec_index++;
+    // If there are more videos to play perform another recursive call, otherwise pause.
+    if (rec_index < recordings.length) {
+      playVideos();
+    } else {
+      pause();
     }
   }
 }
@@ -69,8 +102,7 @@ function restart() {
     recordings[rec_index].pause();
   }
 
-  isPlaying = false;
-  setPlayButtonClass();
+  pause();
   resetScrubber();
 
   // Reset each video element to the beginning
@@ -90,4 +122,13 @@ function setPlayButtonClass() {
   } else {
     playButton.className = 'btn-settings fas fa-play fa-sm';
   }
+}
+
+/**
+ * Pauses scrubber and sets isPlaying to false.
+ */
+function pause() {
+  pauseScrubber();
+  isPlaying = false;
+  setPlayButtonClass();
 }

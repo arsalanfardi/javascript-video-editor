@@ -1,8 +1,6 @@
 import { dragElement } from './draggable.js';
-import { getTimelineElementWidth, incrementTotalTime } from '../timeline/timeline.js';
-import getBlobDuration from '../../../node_modules/get-blob-duration/src/getBlobDuration.js';
 import { resetTimer, startTimer } from '../timer/timer.js';
-import { addRecording } from '../playback/playback.js';
+import { createVideo } from './video-manager.js';
 
 /**
  * Accesses the user's media sources and assigns the video and audio source to the specified element's ID, then
@@ -60,12 +58,10 @@ function getUserMedia(video) {
 }
 
 /**
- * Utilizes the MediaRecorder object to record a video and appends it to the video timeline. 
+ * Utilizes the MediaRecorder object to record a video.
  * @param {*} mediaRecorder the MediaRecorder object enabling recording of videos
  */
 function recordVideo(mediaRecorder) {
-  const videoTimeline = document.querySelector('.video-timeline');
-
   // Define array to hold video recording
   let chunks = [];
 
@@ -84,35 +80,6 @@ function recordVideo(mediaRecorder) {
 
     // Define url for video source
     let videoUrl = window.URL.createObjectURL(blob);
-    createVideo(videoUrl, blob).then(newVideo => {
-      videoTimeline.appendChild(newVideo);
-      addRecording(newVideo);
-    }).catch(
-      console.log
-    );   
+    createVideo(videoUrl, blob)
   }
-}
-
-/**
- * Asynchronous function to create an HTML video element of appropriate width.
- * @param {*} videoUrl the video source
- * @return {*} newVideo the recorded-video element
- */
-async function createVideo(videoUrl, blob) {
-  // Get duration of the blob
-  const duration = await getBlobDuration(blob);
-  console.log(duration);
-
-  // Create new video element
-  const newVideo = document.createElement('video');
-  newVideo.src = videoUrl;
-  newVideo.className = 'recorded-video';
-
-  // Width of the video is the current width of a timeline element times the duration of the video in seconds
-  newVideo.style.width = (duration*getTimelineElementWidth()) + 'px';
-  console.log(newVideo.style.width);
-
-  // Increment seconds on timeline if necessary
-  incrementTotalTime(duration);
-  return newVideo;
 }
