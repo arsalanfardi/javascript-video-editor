@@ -69,7 +69,7 @@ export function incrementTotalTime(seconds) {
   if (totalTime > timelineLength) {
     // Create new timeline elements up to the next whole number
     createTimelineElements(timelineLength, Math.ceil(totalTime));
-    timelineLength = totalTime;
+    timelineLength = Math.ceil(totalTime);
   }
 }
 

@@ -20,14 +20,18 @@ export function startScrubber() {
  * Stops the interval but maintains the scrubber position.
  */
 export function pauseScrubber() {
-  scrubberInterval.stop();
+  if (scrubberInterval) {
+    scrubberInterval.stop();
+  }
 }
 
 /**
  * Stops the interval and resets the scrubber position.
  */
 export function resetScrubber() {
-  scrubberInterval.stop();
+  if (scrubberInterval) {
+    scrubberInterval.stop();
+  }
   reverseScrubberInterval = setInterval(reverseTranslateScrubber, 1);
 }
 
