@@ -3,7 +3,7 @@ import { createTimeline } from './timeline/timeline.js';
 import { initializeSettings } from './settings/settings.js';
 
 window.onload = () => {
-  startUserVideo('#userVideo');
+  startUserVideo();
   createTimeline();
   initializeSettings();
 }

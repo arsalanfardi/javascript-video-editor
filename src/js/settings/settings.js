@@ -1,7 +1,11 @@
-import { startUserVideo } from '../user-video/user-video.js';
+import { startUserVideo, getUserMedia } from '../user-video/user-video.js';
 
+/** The current settings stream */
 let currentStream;
-let constraints = { video: true, audio: true };
+/** The selected constraints */
+let selectedConstraints = { video: true, audio: true };
+/** The testing constraints which may not necessarily be saved */
+let testConstraints = { video: true, audio: true };
 let settingsVideo = document.querySelector('#settingsUserVideo');
 const audioSelect = document.querySelector('#audio-input');
 const videoSelect = document.querySelector('#video-input');
@@ -12,6 +16,7 @@ const videoSelect = document.querySelector('#video-input');
 export function initializeSettings() {
   document.querySelector('#settings').addEventListener('click', openSettings);
   document.querySelector('#settings-close').addEventListener('click', closeSettings);
+  document.querySelector('#save-settings').addEventListener('click', saveSelection);
 }
 
 /**
@@ -19,7 +24,7 @@ export function initializeSettings() {
  * media options in selection menus
  */
 function openSettings() {
-  getSettingsUserMedia(settingsVideo);
+  getSettingsUserMedia(selectedConstraints);
 
   // Remove the existing options in the dropdown menus to prevent duplication
   audioSelect.innerHTML = '';
@@ -32,16 +37,21 @@ function openSettings() {
   navigator.mediaDevices.enumerateDevices()
     .then(devices => {
       devices.forEach(device => {
+        // Create an option for the selection menu
         let opt = document.createElement('option');
         opt.value = device.deviceId;
         if (device.kind === 'audioinput') {
+          // Append to audio selection menu
           opt.appendChild(document.createTextNode(device.label));
           audioSelect.appendChild(opt);
-          opt.value === constraints.audio ? opt.selected = 'selected' : opt;
+          // Select this option on start-up if it's the current stream
+          opt.value === selectedConstraints.audio.exact ? opt.selected = 'selected' : opt;
         } else if (device.kind === 'videoinput') {
+          // Append to video selection menu
           opt.appendChild(document.createTextNode(device.label));
           videoSelect.appendChild(opt);
-          opt.value === constraints.video ? opt.selected = 'selected' : opt;
+          // Select this option on start-up if it's the current stream
+          opt.value === selectedConstraints.video ? opt.selected = 'selected' : opt;
         }
       });
       audioSelect.onchange = changeAudioInput;
@@ -52,7 +62,10 @@ function openSettings() {
     });
 }
 
-function getSettingsUserMedia() {
+/**
+ * Gets the user's media source and applies it to the video in the settings menu.
+ */
+function getSettingsUserMedia(constraints) {
   if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia(constraints)
       .then(mediaStream => {
@@ -67,26 +80,36 @@ function getSettingsUserMedia() {
 }
 
 function changeAudioInput() {
-  if (typeof currentStream !== 'undefined') {
-    stopMediaTracks(currentStream);
+  if (currentStream) {
+    stopMediaTracks('audio');
   }
-  constraints.audio = audioSelect.options[audioSelect.selectedIndex].value;
-  getSettingsUserMedia();
+  const audioSource = audioSelect.options[audioSelect.selectedIndex].value;
+  const audioConstraints = {  deviceId: { exact: audioSource } };
+  testConstraints.audio = audioConstraints;
+  getSettingsUserMedia(testConstraints);
 }
 
 function changeVideoSource() {
-  if (typeof currentStream !== 'undefined') {
-    stopMediaTracks(currentStream);
+  if (currentStream) {
+    stopMediaTracks();
   }
-  constraints.video = videoSelect.options[videoSelect.selectedIndex].value;
-  getSettingsUserMedia();
+  const videoSource = videoSelect.options[videoSelect.selectedIndex].value;
+  const videoConstraints = {  deviceId: { exact: videoSource } };
+  testConstraints.video = videoConstraints;
+  getSettingsUserMedia(testConstraints);
+}
+
+function saveSelection() {
+  selectedConstraints = testConstraints;
+  getUserMedia(selectedConstraints);
+  closeSettings();
 }
 
 /**
- * Loops through each media track and stops them.
+ * Loops through the media tracks and stops them.
  */
-function stopMediaTracks(stream) {
-  stream.getTracks().forEach(track => {
+function stopMediaTracks() {
+  currentStream.getTracks().forEach(track => {
     track.stop();
   })
 }
