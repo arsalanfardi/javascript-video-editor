@@ -77,6 +77,9 @@ function getSettingsUserMedia(constraints) {
   );
 }
 
+/**
+ * Changes the audio source in the settings menu by assigning the source to the test constraints.
+ */
 function changeAudioInput() {
   if (currentStream) {
     stopMediaTracks();
@@ -87,6 +90,9 @@ function changeAudioInput() {
   getSettingsUserMedia(testConstraints);
 }
 
+/**
+ * Changes the video source in the settings menu by assigning the source to the test constraints.
+ */
 function changeVideoSource() {
   if (currentStream) {
     stopMediaTracks();
@@ -97,6 +103,9 @@ function changeVideoSource() {
   getSettingsUserMedia(testConstraints);
 }
 
+/**
+ * Finalizes the selection by setting the test constraints to the selected constraints, then swapping the user media on the main page.
+ */
 async function saveSelection() {
   // Ensure a deep copy to avoid bugs when saving and then proceeding to try and change media sources again
   selectedConstraints = { ...testConstraints };

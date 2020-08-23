@@ -41,6 +41,10 @@ export function getUserMedia(constraints) {
       );
 }
 
+/**
+ * Instantiates a new MediaRecorder from the provided media stream.
+ * @param {*} mediaStream the media stream to be used by the MediaRecorder
+ */
 function createMediaRecorder(mediaStream) {
   // Ensure both audio input and video are present
   if (!verifyStream(mediaStream)) return;
@@ -124,6 +128,7 @@ function verifyStream(stream) {
     missingTracks[track.kind] = false;
   });
 
+  // Loop through the dictionary and check for any true values for missing tracks
   Object.keys(missingTracks).forEach(key => {
     if (missingTracks[key]) {
       message += `\n${key} not detected!`
