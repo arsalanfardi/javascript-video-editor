@@ -7,18 +7,22 @@ let defaultConstraints = { video: true, audio: true };
 /** User video element */
 let userVideo = document.querySelector('#userVideo');
 /** Recording button */
-let start = document.getElementById('record');
+let recordBtn = document.getElementById('record');
 /** The current media stream */
 let currentStream;
 /** Recording state */
 let recording = false;
+/** The MediaRecorder object responsible for capturing the stream */
+let mediaRecorder;
 
 /**
  * Initiates the retrieval of user's media sources and makes the user video element draggable.
  */
-export function startUserVideo() {
+export async function startUserVideo() {
   dragElement(userVideo);
-  getUserMedia(defaultConstraints);
+  await getUserMedia(defaultConstraints);
+  // Wait for MediaRecorder to be constructed before adding event listener to start record button
+  recordBtn.addEventListener('click', toggleRecord);
 }
 
 /**
@@ -26,48 +30,46 @@ export function startUserVideo() {
  * @param {*} video the HTML video element
  */
 export function getUserMedia(constraints) {
-  if (currentStream) {
-    stopMediaTracks();
-  }
-  console.log('constraints', constraints)
-  if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia(constraints)
-      .then(createMediaRecorder)
-        .catch(function (error) {
-          console.log('Something went wrong!', error);
-        });
-  }
+  // Stop any recording and subsequently the media tracks in the MediaRecorder
+  if (recording) toggleRecord();
+  if (currentStream) stopMediaTracks();
+
+  return navigator.mediaDevices.getUserMedia(constraints)
+    .then(createMediaRecorder)
+      .catch(() =>
+        alert("Something went wrong, please try again!")
+      );
 }
 
 function createMediaRecorder(mediaStream) {
-    // Ensure both audio input and video are present
-    if (!verifyStream(mediaStream)) return;
-    // Update current stream
-    currentStream = mediaStream;
-    userVideo.srcObject = mediaStream;
-    // Instantiate recording API
-    let mediaRecorder = new MediaRecorder(mediaStream);
-    console.log(mediaStream.getTracks())
-    // Event listener for recording button
-    start.addEventListener('click', () => {
-      if (!recording) {
-        mediaRecorder.start();
-        recording = true;
-        start.className = 'fas fa-square fa-sm';
-        userVideo.style.border = '1px solid red';
-        startTimer();
-      } else {
-        mediaRecorder.stop()
-        recording = false;
-        start.className = 'fas fa-circle fa-sm';
-        userVideo.style.border = 'none';
-        resetTimer();
-      }
-    })
-
-    recordVideo(mediaRecorder);
+  // Ensure both audio input and video are present
+  if (!verifyStream(mediaStream)) return;
+  // Update current stream
+  currentStream = mediaStream;
+  userVideo.srcObject = mediaStream;
+  // Instantiate recording API
+  mediaRecorder = new MediaRecorder(mediaStream);
+  console.log("recording", recording)
+  
+  recordVideo(mediaRecorder);
 }
 
+/** Toggles starting and stopping of recording through the MediaRecorder object */
+function toggleRecord() {
+  if (!recording) {
+    mediaRecorder.start();
+    recording = true;
+    recordBtn.className = 'fas fa-square fa-sm';
+    userVideo.style.border = '1px solid red';
+    startTimer();
+  } else {
+    mediaRecorder.stop()
+    recording = false;
+    recordBtn.className = 'fas fa-circle fa-sm';
+    userVideo.style.border = 'none';
+    resetTimer();
+  }
+}
 /**
  * Utilizes the MediaRecorder object to record a video.
  * @param {*} mediaRecorder the MediaRecorder object enabling recording of videos
@@ -128,7 +130,7 @@ function verifyStream(stream) {
     }
   })
 
-  if (message.length !== 0 ) {
+  if (message.length !== 0) {
     alert(message);
     return false;
   }

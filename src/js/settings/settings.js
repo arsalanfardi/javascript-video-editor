@@ -1,10 +1,10 @@
-import { startUserVideo, getUserMedia } from '../user-video/user-video.js';
+import { getUserMedia } from '../user-video/user-video.js';
 
 /** The current settings stream */
 let currentStream;
 /** The selected constraints */
 let selectedConstraints = { video: true, audio: true };
-/** The testing constraints which may not necessarily be saved */
+/** The constraints for user testing purposes which may not necessarily be saved */
 let testConstraints = { video: true, audio: true };
 let settingsVideo = document.querySelector('#settingsUserVideo');
 const audioSelect = document.querySelector('#audio-input');
@@ -44,14 +44,14 @@ function openSettings() {
           // Append to audio selection menu
           opt.appendChild(document.createTextNode(device.label));
           audioSelect.appendChild(opt);
-          // Select this option on start-up if it's the current stream
-          opt.value === selectedConstraints.audio.exact ? opt.selected = 'selected' : opt;
+          // Select this option on start-up if it's in the current stream from a previous selection
+          opt.value === selectedConstraints.audio.deviceId?.exact ? opt.selected = 'selected' : opt;
         } else if (device.kind === 'videoinput') {
           // Append to video selection menu
           opt.appendChild(document.createTextNode(device.label));
           videoSelect.appendChild(opt);
-          // Select this option on start-up if it's the current stream
-          opt.value === selectedConstraints.video ? opt.selected = 'selected' : opt;
+          // Select this option on start-up if it's in the current stream from a previous selection
+          opt.value === selectedConstraints.video.deviceId?.exact ? opt.selected = 'selected' : opt;
         }
       });
       audioSelect.onchange = changeAudioInput;
@@ -66,22 +66,20 @@ function openSettings() {
  * Gets the user's media source and applies it to the video in the settings menu.
  */
 function getSettingsUserMedia(constraints) {
-  if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia(constraints)
-      .then(mediaStream => {
-        settingsVideo.srcObject = mediaStream;
-        currentStream = mediaStream;
-      })
-      .catch(function (error) {
-        console.log('Something went wrong!', error);
-      }
-    );
-  }
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then(mediaStream => {
+      settingsVideo.srcObject = mediaStream;
+      currentStream = mediaStream;
+    })
+    .catch(function (error) {
+      console.log('Something went wrong!', error);
+    }
+  );
 }
 
 function changeAudioInput() {
   if (currentStream) {
-    stopMediaTracks('audio');
+    stopMediaTracks();
   }
   const audioSource = audioSelect.options[audioSelect.selectedIndex].value;
   const audioConstraints = {  deviceId: { exact: audioSource } };
@@ -99,9 +97,11 @@ function changeVideoSource() {
   getSettingsUserMedia(testConstraints);
 }
 
-function saveSelection() {
-  selectedConstraints = testConstraints;
-  getUserMedia(selectedConstraints);
+async function saveSelection() {
+  // Ensure a deep copy to avoid bugs when saving and then proceeding to try and change media sources again
+  selectedConstraints = { ...testConstraints };
+  // Wait for user video to be changed before closing settings menu
+  await getUserMedia(selectedConstraints);
   closeSettings();
 }
 
@@ -115,9 +115,11 @@ function stopMediaTracks() {
 }
 
 /**
- * Closes thes settings menu by setting display to none.
+ * Closes thes settings menu by resetting the settings media stream to previously selected one, and assigning none to display.
  */
 function closeSettings() {
+  // Reset settings media stream to previously selected one
+  getSettingsUserMedia(selectedConstraints);
   document.querySelector('.settings-panel').style.display = "none";
   document.querySelector('.modal').style.display = "none";
 }
