@@ -45,13 +45,15 @@ function openSettings() {
           opt.appendChild(document.createTextNode(device.label));
           audioSelect.appendChild(opt);
           // Select this option on start-up if it's in the current stream from a previous selection
-          opt.value === selectedConstraints.audio.deviceId?.exact ? opt.selected = 'selected' : opt;
+          isCurrentSelection(opt.value) ? opt.selected = 'selected' : opt;
+          // opt.value === selectedConstraints.audio.deviceId?.exact ? opt.selected = 'selected' : opt; // Removed because of null condition operator incompatibility with webpack
         } else if (device.kind === 'videoinput') {
           // Append to video selection menu
           opt.appendChild(document.createTextNode(device.label));
           videoSelect.appendChild(opt);
-          // Select this option on start-up if it's in the current stream from a previous selection
-          opt.value === selectedConstraints.video.deviceId?.exact ? opt.selected = 'selected' : opt;
+          isCurrentSelection(opt.value) ? opt.selected = 'selected' : opt;
+          // Select this option on start-up if it's in the current stream from a previous selection 
+          // opt.value === selectedConstraints.video.deviceId?.exact ? opt.selected = 'selected' : opt;// Removed because of null condition operator incompatibility with webpack
         }
       });
       audioSelect.onchange = changeAudioInput;
@@ -60,6 +62,20 @@ function openSettings() {
     .catch(function (err) {
       console.log(err.name + ": " + err.message);
     });
+}
+
+/**
+ * Checks to see if the device ID matches a current selected constraint.
+ * @param {*} deviceId the device ID to be checked
+ * @return boolean indicating whether the device ID matches the current selection.
+ */
+function isCurrentSelection(deviceId) {
+  if (selectedConstraints.video.deviceId && selectedConstraints.video.deviceId.exact === deviceId) {
+    return true;
+  } else if (selectedConstraints.audio.deviceId && selectedConstraints.audio.deviceId.exact === deviceId) {
+    return true;
+  }
+  return false;
 }
 
 /**
