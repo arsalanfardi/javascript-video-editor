@@ -1,4 +1,5 @@
-import getBlobDuration from '../../../node_modules/get-blob-duration/src/getBlobDuration.js';
+// import getBlobDuration from '../../../node_modules/get-blob-duration/src/getBlobDuration.js';
+import getBlobDuration from 'get-blob-duration';
 import { decrementTotalTime, getTimelineElementWidth, incrementTotalTime } from '../timeline/timeline.js';
 import { addRecording, removeRecording } from '../playback/playback.js';
 
