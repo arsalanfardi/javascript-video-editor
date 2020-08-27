@@ -33,6 +33,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "get-blob-duration": "^1.1.2"
+    "get-blob-duration": "^1.1.2",
+    "tippy.js": "^6.2.6"
   }
 }

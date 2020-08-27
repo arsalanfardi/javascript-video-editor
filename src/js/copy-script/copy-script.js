@@ -1,5 +1,25 @@
+import tippy from 'tippy.js';
+
+const copyBtn = document.querySelector('#copyScript');
+
+tippy(copyBtn, {
+  content: 'Copy Script',
+  arrow: false,
+});
+
+tippy(copyBtn, {
+  trigger: 'click',
+  content: 'Script Copied!',
+  arrow: false,
+  onShow(instance) {
+    setTimeout(() => {
+      instance.hide();
+    }, 1000);
+  }
+});
+
 export function initializeCopy() {
-  document.querySelector('#copyScript').addEventListener('click', copyScript);
+  copyBtn.addEventListener('click', copyScript);
 }
 
 function copyScript() {
@@ -12,4 +32,8 @@ function copyScript() {
   el.select();
   document.execCommand('copy');
   document.body.removeChild(el);
+  tippy(copyBtn, {
+    content: 'Copy Script',
+    arrow: false,
+  });
 }

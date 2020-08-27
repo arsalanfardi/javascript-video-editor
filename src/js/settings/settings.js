@@ -1,4 +1,5 @@
 import { getUserMedia } from '../user-video/user-video.js';
+import tippy from 'tippy.js';
 
 /** The current settings stream */
 let currentStream;
@@ -6,9 +7,15 @@ let currentStream;
 let selectedConstraints = { video: true, audio: true };
 /** The constraints for user testing purposes which may not necessarily be saved */
 let testConstraints = { video: true, audio: true };
-let settingsVideo = document.querySelector('#settingsUserVideo');
+const settingsBtn = document.querySelector('#settings');
+const settingsVideo = document.querySelector('#settingsUserVideo');
 const audioSelect = document.querySelector('#audio-input');
 const videoSelect = document.querySelector('#video-input');
+
+tippy(settingsBtn, {
+  content: 'Settings',
+  arrow: false
+});
 
 /**
  * Binds the event listeners to the settings buttons
