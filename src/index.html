@@ -27,28 +27,35 @@
   </header>
   <div class="modal"></div>
   <div class="main">
-    <div class="settings-panel">
+    <div class="settings-panel" style="display: none">
       <div id="settings-close"><i class="fas fa-times-circle"></i></div>
       <div class="settings-container">
         <video autoplay="true" id="settingsUserVideo" muted></video>
         <i class="fas fa-video fa-md settings-icon"></i>
-        <select class="selection-audio" id="video-input"></select>
+        <select class="selection-menu" id="video-input"></select>
         <i class="fas fa-microphone fa-lg settings-icon"></i>
-        <select class="selection-audio" name="cars" id="audio-input"></select>
+        <select class="selection-menu" id="audio-input"></select>
         <button class="btn-submit" id="save-settings">Save</button>
       </div>
     </div>
-    <div class="upload-panel">
+    <div class="upload-panel" style="display: none">
       <div id="upload-close"><i class="fas fa-times-circle"></i></div>
       <div class="upload-container">
         <button class="btn-upload-select">
           <i class="upload-icon fas fa-upload"></i>
           <label for="file-input" class="upload-label">
-            Select file
+            Select a file
           </label>
         </button>
+        <div class="file-preview-panel" style="display: none">
+          <div class="upload-preview">
+            <i class="fas fa-play fa-3x preview-icon"></i>
+            <div class="filename-preview"></div>
+          </div>
+          <button class="btn-submit" id="confirm-upload">Upload</button>
+        </div>
       </div>
-      <input type="file" accept=".mp4, .mov" id="file-input" style="display: none" multiple>
+      <input type="file" accept=".mp4, .mov" id="file-input" style="display: none">
       <!-- <form action="javascript:alert('Hi')" class="dropzone" id="dropzoneClass"></form> -->
     </div>
     <div class="video-container">
