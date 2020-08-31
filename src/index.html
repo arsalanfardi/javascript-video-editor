@@ -29,7 +29,7 @@
   <div class="main">
     <div class="settings-panel">
       <div id="settings-close"><i class="fas fa-times-circle"></i></div>
-      <div class="settings-container" style="text-align: center;">
+      <div class="settings-container">
         <video autoplay="true" id="settingsUserVideo" muted></video>
         <i class="fas fa-video fa-md settings-icon"></i>
         <select class="selection-audio" id="video-input"></select>
@@ -37,6 +37,19 @@
         <select class="selection-audio" name="cars" id="audio-input"></select>
         <button class="btn-submit" id="save-settings">Save</button>
       </div>
+    </div>
+    <div class="upload-panel">
+      <div id="upload-close"><i class="fas fa-times-circle"></i></div>
+      <div class="upload-container">
+        <button class="btn-upload-select">
+          <i class="upload-icon fas fa-upload"></i>
+          <label for="video-upload" class="upload-label">
+            Select file
+          </label>
+        </button>
+      </div>
+      <input type="file" accept="video/mp4, video/mov" id="video-upload" style="display: none" multiple>
+      <!-- <form action="javascript:alert('Hi')" class="dropzone" id="dropzoneClass"></form> -->
     </div>
     <div class="video-container">
       <video id="sampleVideo" controls>
