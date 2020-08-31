@@ -388,6 +388,7 @@ li {
 }
 
 .upload-panel {
+  display: none;
   position: absolute;
   height: 300px;
   width: 400px;

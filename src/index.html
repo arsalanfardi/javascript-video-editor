@@ -43,12 +43,12 @@
       <div class="upload-container">
         <button class="btn-upload-select">
           <i class="upload-icon fas fa-upload"></i>
-          <label for="video-upload" class="upload-label">
+          <label for="file-input" class="upload-label">
             Select file
           </label>
         </button>
       </div>
-      <input type="file" accept="video/mp4, video/mov" id="video-upload" style="display: none" multiple>
+      <input type="file" accept=".mp4, .mov" id="file-input" style="display: none" multiple>
       <!-- <form action="javascript:alert('Hi')" class="dropzone" id="dropzoneClass"></form> -->
     </div>
     <div class="video-container">
@@ -88,7 +88,7 @@ Nullam nec magna in ante pharetra interdum lobortis id mauris. Integer dolor ant
           <li><button class="btn-settings fas fa-play fa-sm" id="play"></button></li>
           <li><span class="timer">00:00:00</span></li>
           <li><button class="fas fa-circle fa-sm" id="record"></button></li>
-          <li><button class="btn-settings fas fa-upload"></button></li>
+          <li><button class="btn-settings fas fa-upload" id="upload"></button></li>
         </ul>
       </div>
       <div class="toolbar-right">

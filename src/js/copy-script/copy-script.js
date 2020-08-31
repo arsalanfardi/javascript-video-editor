@@ -3,13 +3,13 @@ import tippy from 'tippy.js';
 const copyBtn = document.querySelector('#copyScript');
 
 tippy(copyBtn, {
-  content: 'Copy Script',
+  content: 'Copy script',
   arrow: false,
 });
 
 tippy(copyBtn, {
   trigger: 'click',
-  content: 'Script Copied!',
+  content: 'Script copied!',
   arrow: false,
   onShow(instance) {
     setTimeout(() => {
@@ -18,7 +18,7 @@ tippy(copyBtn, {
   }
 });
 
-export function initializeCopy() {
+export function prepareCopy() {
   copyBtn.addEventListener('click', copyScript);
 }
 

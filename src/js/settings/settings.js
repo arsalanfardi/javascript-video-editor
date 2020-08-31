@@ -11,6 +11,8 @@ const settingsBtn = document.querySelector('#settings');
 const settingsVideo = document.querySelector('#settingsUserVideo');
 const audioSelect = document.querySelector('#audio-input');
 const videoSelect = document.querySelector('#video-input');
+const settingsPanel = document.querySelector('.settings-panel');
+const modal = document.querySelector('.modal');
 
 tippy(settingsBtn, {
   content: 'Settings',
@@ -20,7 +22,7 @@ tippy(settingsBtn, {
 /**
  * Binds the event listeners to the settings buttons
  */
-export function initializeSettings() {
+export function prepareSettings() {
   document.querySelector('#settings').addEventListener('click', openSettings);
   document.querySelector('#settings-close').addEventListener('click', closeSettings);
   document.querySelector('#save-settings').addEventListener('click', saveSelection);
@@ -38,8 +40,8 @@ function openSettings() {
   videoSelect.innerHTML = '';
 
   // Make the settings panel visible
-  document.querySelector('.modal').style.display = "block";
-  document.querySelector('.settings-panel').style.display = "block";
+  modal.style.display = "block";
+  settingsPanel.style.display = "block";
 
   navigator.mediaDevices.enumerateDevices()
     .then(devices => {
@@ -152,6 +154,6 @@ function stopMediaTracks() {
 function closeSettings() {
   // Reset settings media stream to previously selected one
   getSettingsUserMedia(selectedConstraints);
-  document.querySelector('.settings-panel').style.display = "none";
-  document.querySelector('.modal').style.display = "none";
+  settingsPanel.style.display = 'none';
+  modal.style.display = 'none';
 }
