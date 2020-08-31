@@ -1,4 +1,3 @@
-// import * as Dropzone from "dropzone/dist/dropzone.js";
 import tippy from 'tippy.js';
 
 const uploadBtn = document.querySelector('#upload');

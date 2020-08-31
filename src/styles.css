@@ -308,7 +308,7 @@ li {
   overflow: auto;
 }
 
-/* SETTINGS */
+/* SETTINGS MENU */
 
 .modal {
   display: none;
@@ -387,7 +387,7 @@ li {
   padding-left: 2rem;
 }
 
-/* Dropzone */
+/* UPLOAD MENU */
 
 .btn-upload-select {
   background-color: black;
@@ -424,28 +424,6 @@ li {
   padding-right: 0.25rem
 }
 
-.dropzone .dz-message {
-  text-align: center;
-  margin: 2em 0;
-}
-
-.dropzone {
-  border: 2px dashed gray;
-  border-radius: 5px;
-  background: white;
-  height: 240px;
-  margin: 30px;
-  cursor: pointer;
-}
-
-.dz-button {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
 .upload-preview {
   height: 125px;
   margin: 1.25rem auto;
@@ -463,14 +441,9 @@ li {
 .filename-preview {
   font-size: 0.8rem;
   width: 90%;
-  /* color: white; */
   background-color: lightgray;
   margin: 0 auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.file-preview-panel {
-  display: none;
 }
