@@ -97,7 +97,7 @@ function getSettingsUserMedia(constraints) {
       currentStream = mediaStream;
     })
     .catch(function (error) {
-      console.log('Something went wrong!', error);
+      console.log('"Something went wrong with retrieving your input devices, please try again!"', error);
     }
   );
 }

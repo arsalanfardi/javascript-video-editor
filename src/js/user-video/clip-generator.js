@@ -1,4 +1,5 @@
 import { selectVideoClip } from './video-manager.js';
+import { isLoading } from '../loading-spinner/loading-spinner.js';
 
 const videoTimeline = document.querySelector('.video-timeline');
 
@@ -57,6 +58,9 @@ function generateVideoClip(frames, width) {
   })
 
   // Add event listener for video selection from video-manager
-  videoClipElem.addEventListener('click', selectVideoClip)
+  videoClipElem.addEventListener('click', selectVideoClip);
   videoTimeline.appendChild(videoClipElem);
+  
+  // Stop loading spinner on timeline
+  isLoading(false, document.querySelector('.timeline'));
 }

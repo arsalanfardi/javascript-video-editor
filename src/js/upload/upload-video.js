@@ -26,7 +26,11 @@ export function prepareUpload() {
   uploadBtn.addEventListener('click', openUpload);
   document.querySelector('#upload-close').addEventListener('click', closeUpload);
 
-  inputElement.addEventListener("change", handleFiles);
+  inputElement.addEventListener('change', handleFiles);
+  // Reset input element on each click to trigger onchange event even if same path is selected
+  inputElement.addEventListener('click', function() {
+    this.value = null;
+  });
 }
 
 /**
@@ -42,7 +46,7 @@ function handleFiles() {
 
   // Display a preview of the selected file and the button for upload confirmation.
   document.querySelector('.filename-preview').innerHTML = fileList[0].name;
-  previewPanel.style.display = 'block';
+  previewPanel.setAttribute('style', 'display: block');
 }
 
 /**
@@ -63,16 +67,16 @@ function uploadVideoToTimeline() {
  * The file preview is kept closed so that the user must select another file.
  */
 function openUpload() {
-  modal.style.display = 'block';
-  uploadPanel.style.display = 'block';
+  modal.setAttribute('style', 'display: block');
+  uploadPanel.setAttribute('style', 'display: block');
 }
 
 /**
  * Closes the upload menu by setting displays to none.
  */
 function closeUpload() {
-  modal.style.display = 'none';
-  uploadPanel.style.display = 'none';
-  previewPanel.style.display = 'none';
-  previewVideo.src = null;
+  modal.setAttribute('style', 'display: none');
+  uploadPanel.setAttribute('style', 'display: none');
+  previewPanel.setAttribute('style', 'display: none');
+  previewPanel.removeAttribute('src');
 }

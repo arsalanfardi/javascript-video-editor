@@ -37,7 +37,7 @@ export function getUserMedia(constraints) {
   return navigator.mediaDevices.getUserMedia(constraints)
     .then(createMediaRecorder)
       .catch(() =>
-        alert("Something went wrong, please try again!")
+        alert("Something went wrong with retrieving your input devices, please try again!")
       );
 }
 

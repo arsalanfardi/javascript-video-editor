@@ -1,6 +1,7 @@
 // import getBlobDuration from '../../../node_modules/get-blob-duration/src/getBlobDuration.js';
 import getBlobDuration from 'get-blob-duration';
 import { extractFrames } from './clip-generator.js';
+import { isLoading } from '../loading-spinner/loading-spinner.js';
 import { addRecording, recordings, removeRecording } from '../playback/playback.js';
 import { decrementTotalTime, getTimelineElementWidth, incrementTotalTime } from '../timeline/timeline.js';
 
@@ -15,6 +16,9 @@ document.querySelector('#delete').addEventListener('click', deleteVideo);
  * @return {*} newVideo the recorded-video element
  */
 export async function createVideo(videoUrl, blob) {
+  // Start loading spinner on timeline
+  isLoading(true, document.querySelector('.timeline'));
+
   // Get duration of the blob
   duration = await getBlobDuration(blob);
   console.log(duration);
