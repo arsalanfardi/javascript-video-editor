@@ -237,7 +237,7 @@ li {
   height: 85%;
   /* overflow-x: scroll; */
   overflow-y: hidden;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: thin; /* Firefox */
 }
 
 .seconds-timeline {
@@ -289,6 +289,21 @@ li {
   background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
   border: 0.5px solid white;
   border-radius: 0.3125rem;
+}
+
+.video-clip {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  background-color: #485461;
+  background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
+  border-radius: 0.3125rem;
+  border: 0.5px solid white;
+  cursor: pointer;
+}
+
+.frame {
+  height: 100%;
 }
 
 #selected-video {
@@ -406,7 +421,7 @@ li {
 
 .upload-panel {
   position: absolute;
-  height: 300px;
+  height: auto;
   width: 400px;
   border-radius: 10px;
   background-color: #ebebeb;
@@ -424,25 +439,22 @@ li {
   padding-right: 0.25rem
 }
 
-.upload-preview {
-  height: 125px;
-  margin: 1.25rem auto;
-  width: 125px;
-  border-radius: 1rem;
+.preview-video {
+  width: 90%;
+  height: auto;
+  max-height: 300px;
+  margin: 1.25rem auto 0 auto;
+  border-radius: 0.3125rem;
+  border: 0.5px solid black;
   background-color: #485461;
   background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
-}
-
-.preview-icon {
-  color: white;
-  margin: 1.25rem 0 1.25rem 0.25rem;
 }
 
 .filename-preview {
   font-size: 0.8rem;
   width: 90%;
   background-color: lightgray;
-  margin: 0 auto;
+  margin: 0 auto 1.25rem auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

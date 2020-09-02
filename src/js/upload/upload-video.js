@@ -1,10 +1,17 @@
 import tippy from 'tippy.js';
+import { createVideo } from '../user-video/video-manager';
 
 const uploadBtn = document.querySelector('#upload');
 const uploadPanel = document.querySelector('.upload-panel');
 const modal = document.querySelector('.modal');
 const inputElement = document.querySelector('#file-input');
 const previewPanel = document.querySelector('.file-preview-panel');
+const previewVideo = document.querySelector('#preview-video');
+/** List for storing selected input files */
+let fileList;
+
+/** Set event listener for upload confirmation button */
+document.querySelector('#confirm-upload').addEventListener('click', uploadVideoToTimeline);
 
 tippy(uploadBtn, {
   content: 'Upload',
@@ -28,11 +35,25 @@ export function prepareUpload() {
  */
 function handleFiles() {
   // The file list from input, currently a single item since multiple upload is disallowed.
-  const fileList = this.files;
+  fileList = Array.from(this.files);
+  let blob = fileList[0];
+  let videoUrl = window.URL.createObjectURL(blob);
+  previewVideo.src = videoUrl;
 
   // Display a preview of the selected file and the button for upload confirmation.
   document.querySelector('.filename-preview').innerHTML = fileList[0].name;
   previewPanel.style.display = 'block';
+}
+
+/**
+ * 
+ */
+function uploadVideoToTimeline() {
+  fileList.map(fileBlob => {
+    let videoUrl = window.URL.createObjectURL(fileBlob);
+    createVideo(videoUrl, fileBlob);
+  });
+  closeUpload();
 }
 
 /**
@@ -53,4 +74,5 @@ function closeUpload() {
   modal.style.display = 'none';
   uploadPanel.style.display = 'none';
   previewPanel.style.display = 'none';
+  previewVideo.src = null;
 }

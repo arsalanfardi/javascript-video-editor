@@ -3,7 +3,7 @@ import { getTimelineElementWidth } from '../timeline/timeline.js';
 import { getCumulativeWidthByIndex } from '../user-video/video-manager.js';
 
 /** Array of recorded video elements */
-let recordings = [];
+export let recordings = [];
 /** Index to track the current video within recordings */
 let rec_index = 0;
 /** Playing status */
@@ -23,8 +23,7 @@ export function addRecording(videoElement) {
   recordings.push(videoElement);
 }
 
-export function removeRecording(videoElement, duration) {
-  let index = recordings.indexOf(videoElement);
+export function removeRecording(index, duration) {
   if (index > -1) {
     if (index === rec_index) {
       removeCurrentVideo(index);
@@ -41,8 +40,9 @@ export function removeRecording(videoElement, duration) {
 }
 
 function removeCurrentVideo(index) {
-  recordings.splice(index, 1)[0];
-   // Get the cumulative width up to the video prior to this one
+  let deletedVideo = recordings.splice(index, 1)[0];
+  deletedVideo.pause();
+  // Get the cumulative width up to the video prior to this one
   let newScrubberPosition = getCumulativeWidthByIndex(index-1) + 'px';
   // Move scrubber to the new position
   moveScrubberToPosition(newScrubberPosition);

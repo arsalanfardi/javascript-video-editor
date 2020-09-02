@@ -96,7 +96,7 @@ function createTimelineElements(startSeconds, stopSeconds) {
  * Will be used to determine the width of videos in the timeline.
  */
 export function getTimelineElementWidth() {
-  return parseInt(window.getComputedStyle(node).getPropertyValue('width'));
+  return parseInt(getComputedStyle(node).getPropertyValue('width'));
 }
 
 /**
@@ -107,7 +107,7 @@ export function getTimelineElementWidth() {
 function getTickMargin() {
   const remValue = 16;
   let majorTick = document.querySelector('.tick-major');
-  const currentMargin = window.getComputedStyle(majorTick).getPropertyValue('margin-right');
+  const currentMargin = getComputedStyle(majorTick).getPropertyValue('margin-right');
 
   return parseInt(currentMargin)/remValue;
 }

@@ -1,9 +1,11 @@
 // import getBlobDuration from '../../../node_modules/get-blob-duration/src/getBlobDuration.js';
 import getBlobDuration from 'get-blob-duration';
+import { extractFrames } from './clip-generator.js';
+import { addRecording, recordings, removeRecording } from '../playback/playback.js';
 import { decrementTotalTime, getTimelineElementWidth, incrementTotalTime } from '../timeline/timeline.js';
-import { addRecording, removeRecording } from '../playback/playback.js';
 
 const videoTimeline = document.querySelector('.video-timeline');
+let duration;
 let selectedVideo;
 document.querySelector('#delete').addEventListener('click', deleteVideo);
 
@@ -14,20 +16,20 @@ document.querySelector('#delete').addEventListener('click', deleteVideo);
  */
 export async function createVideo(videoUrl, blob) {
   // Get duration of the blob
-  const duration = await getBlobDuration(blob);
+  duration = await getBlobDuration(blob);
   console.log(duration);
 
-  // Create new video element
-  const newVideo = createVideoElement(videoUrl);
-
   // Width of the video is the current width of a timeline element times the duration of the video in seconds
-  newVideo.style.width = (duration*getTimelineElementWidth()) + 'px';
-  console.log(newVideo.style.width);
+  let width = (duration * getTimelineElementWidth()) + 'px';
+  console.log(width);
+
+  // Create new video element
+  const newVideo = createVideoElement(videoUrl, width);
 
   // Increment seconds on timeline if necessary
   incrementTotalTime(duration);
 
-  videoTimeline.appendChild(newVideo);
+  // Add recording to playback list
   addRecording(newVideo);
 }
 
@@ -35,39 +37,53 @@ export async function createVideo(videoUrl, blob) {
  * Creates an HTML video element.
  * @param {*} videoUrl the video source
  */
-function createVideoElement(videoUrl) {
+function createVideoElement(videoUrl, width) {
   const newVideo = document.createElement('video');
-  newVideo.src = videoUrl;
   newVideo.className = 'recorded-video';
-  newVideo.addEventListener('click', selectVideo);
+
+  // Extract frames and generate clip
+  extractFrames(newVideo, duration, width);
+
+  newVideo.setAttribute('src', videoUrl);
 
   return newVideo;
 }
 
-function selectVideo() {
-  let videoElement = event.target;
-  if (videoElement !== selectedVideo && selectedVideo) {
-    selectedVideo.id = null;
+export function selectVideoClip() {
+  let videoClipElem = event.target.parentElement;
+  if (videoClipElem !== selectedVideo && selectedVideo) {
+    selectedVideo.removeAttribute('id');
   }
-  videoElement.id = 'selected-video';
-  selectedVideo = videoElement;
+  videoClipElem.setAttribute('id', 'selected-video');
+  selectedVideo = videoClipElem;
 }
 
+/**
+ * Deletes the currently selected video by removing it from the recordings array and
+ * decrementing the total time.
+ */
 async function deleteVideo() {
   if (selectedVideo) {
-    const duration = await getBlobDuration(selectedVideo.src);
+    let index = Array.from(videoTimeline.childNodes).indexOf(selectedVideo);
+    const duration = await getBlobDuration(recordings[index].src);
     decrementTotalTime(duration);
-    removeRecording(selectedVideo, duration);
+    removeRecording(index, duration);
     selectedVideo.remove();
     selectedVideo = null;
   }
 }
 
+/**
+ * Returns the cumulative width up to and including the specified video index.
+ * @param {*} index 
+ */
 export function getCumulativeWidthByIndex(index) {
-  const videoElements = videoTimeline.childNodes;
+  const videoClips = Array.from(videoTimeline.childNodes);
+
   let totalWidth = 0;
-  for(let i=0; i <= index && i < videoElements.length; i++) {
-    totalWidth += parseFloat(videoElements[i].style.width);
+  for (let i = 0; i <= index && i < videoClips.length; i++) {
+    totalWidth += parseFloat(videoClips[i].style.width);
   }
+
   return totalWidth;
 }

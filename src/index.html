@@ -48,15 +48,12 @@
           </label>
         </button>
         <div class="file-preview-panel" style="display: none">
-          <div class="upload-preview">
-            <i class="fas fa-play fa-3x preview-icon"></i>
-            <div class="filename-preview"></div>
-          </div>
+          <video class="preview-video" id="preview-video" controls></video>
+          <div class="filename-preview"></div>
           <button class="btn-submit" id="confirm-upload">Upload</button>
         </div>
       </div>
       <input type="file" accept=".mp4, .mov" id="file-input" style="display: none">
-      <!-- <form action="javascript:alert('Hi')" class="dropzone" id="dropzoneClass"></form> -->
     </div>
     <div class="video-container">
       <video id="sampleVideo" controls>
