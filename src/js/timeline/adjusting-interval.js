@@ -27,4 +27,8 @@ export class AdjustingInterval {
       timeout = setTimeout(step, Math.max(0, that.interval - drift));
     }
   }
+
+  updateInterval(newInterval) {
+    this.interval = newInterval;
+  }
 }

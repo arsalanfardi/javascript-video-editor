@@ -7,7 +7,7 @@ export let recordings = [];
 /** Index to track the current video within recordings */
 let rec_index = 0;
 /** Playing status */
-let isPlaying = false;
+export let isPlaying = false;
 
 const playButton = document.querySelector('#play');
 const restartButton = document.querySelector('#restart');

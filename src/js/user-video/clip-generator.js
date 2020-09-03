@@ -39,15 +39,17 @@ export function extractFrames(video, duration, width) {
     this.removeEventListener('seeked', seekResolver);
 
     // Generate and append video clip to timeline
-    generateVideoClip(frames, width);
+    generateVideoClip(frames, width, duration);
   });
 }
 
-function generateVideoClip(frames, width) {
+function generateVideoClip(frames, width, videoDuration) {
   // Create new video clip element
   const videoClipElem = document.createElement('div');
   videoClipElem.setAttribute('class', 'video-clip');
   videoClipElem.setAttribute('style', `width: ${width}`)
+  // Store the duration of the clip in a custom data attribute for convenient accessibility
+  videoClipElem.setAttribute('data-video-duration', videoDuration);
 
   // Add each extracted frame as a child image to the video clip element
   frames.map(imgUrl => {

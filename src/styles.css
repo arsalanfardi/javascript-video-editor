@@ -11,8 +11,6 @@
 
 :root {
   font-size: 100%;
-  --yt-video-height: 458px;
-  --yt-video-width: 814px; 
 }
 
 /* LOADING SPINNER */
@@ -321,8 +319,8 @@ li {
   margin: 1.25rem auto 0 auto;
   border-radius: 0.3125rem;
   border: 0.5px solid black;
-  background-color: #485461;
-  background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
+  background-color: #5b6467;
+  background-image: linear-gradient(315deg, #5b6467 0%, #8b939a 74%);
 }
 
 .filename-preview {
@@ -461,8 +459,8 @@ li {
   display: flex;
   justify-content: space-between;
   overflow: hidden;
-  background-color: #485461;
-  background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
+  background-color: #5b6467;
+  background-image: linear-gradient(315deg, #5b6467 0%, #8b939a 74%);
   border-radius: 0.5rem;
   border: 0.5px solid white;
   cursor: pointer;

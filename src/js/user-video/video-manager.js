@@ -24,7 +24,7 @@ export async function createVideo(videoUrl, blob) {
   console.log(duration);
 
   // Width of the video is the current width of a timeline element times the duration of the video in seconds
-  let width = (duration * getTimelineElementWidth()) + 'px';
+  const width = (duration * getTimelineElementWidth()) + 'px';
   console.log(width);
 
   // Create new video element
@@ -54,7 +54,12 @@ function createVideoElement(videoUrl, width) {
 }
 
 export function selectVideoClip() {
-  let videoClipElem = event.target.parentElement;
+  let videoClipElem = event.target;
+  // If an img element is selected grab its parent element 
+  if (event.target.className != 'video-clip') {
+    videoClipElem = event.target.parentElement;
+  }
+
   if (videoClipElem !== selectedVideo && selectedVideo) {
     selectedVideo.removeAttribute('id');
   }
@@ -68,7 +73,7 @@ export function selectVideoClip() {
  */
 async function deleteVideo() {
   if (selectedVideo) {
-    let index = Array.from(videoTimeline.childNodes).indexOf(selectedVideo);
+    const index = Array.from(videoTimeline.childNodes).indexOf(selectedVideo);
     const duration = await getBlobDuration(recordings[index].src);
     decrementTotalTime(duration);
     removeRecording(index, duration);
