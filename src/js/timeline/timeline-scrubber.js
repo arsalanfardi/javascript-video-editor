@@ -1,8 +1,10 @@
 import { isPlaying } from '../playback/playback.js';
 import { AdjustingInterval } from './adjusting-interval.js';
 import { totalTime, getTimelineElementWidth } from './timeline.js';
+import { dragElement } from '../user-video/draggable.js';
 
 const timelineScrubber = document.querySelector('.timeline-scrubber');
+dragElement(timelineScrubber)
 let scrubberInterval;
 let reverseScrubberInterval;
 let timelineElementWidth;

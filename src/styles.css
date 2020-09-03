@@ -136,6 +136,7 @@ li {
 .main {
   margin: 2rem 10rem;
   display: flex;
+  position: relative;
 }
 
 .video-container {
@@ -151,18 +152,15 @@ li {
 
 #userVideo {
   position: absolute;
-  top: 35%;
+  top: 45%;
   right: 35%;
   /* Maintain native aspect ratio of camera */
 	width: 12.5%;
   height: auto;
+  cursor: move;
   background-color: black;
   border-radius: 0.3125rem;
   z-index: 1;
-}
-
-#userVideo {
-  cursor: pointer;
 }
 
 /* Setting applies to every element with a scrollbar for Chrome and Safari */
@@ -483,6 +481,7 @@ li {
   background-color: black;
   min-width: 2px;
   min-height: 25vh;
+  cursor: col-resize;
   position: absolute;
   overflow: auto;
 }
