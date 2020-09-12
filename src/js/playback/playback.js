@@ -1,6 +1,7 @@
 import { moveScrubberByAmount, pauseScrubber, resetScrubber, startScrubber, moveScrubberToPosition } from '../timeline/timeline-scrubber.js';
 import { getTimelineElementWidth } from '../timeline/timeline.js';
 import { getCumulativeWidthByIndex } from '../user-video/video-manager.js';
+import getBlobDuration from 'get-blob-duration';
 
 /** Array of recorded video elements */
 export let recordings = [];
@@ -82,9 +83,11 @@ function playVideos() {
   video.play();
   // Once video ends play the next video or pause if at the end
   video.onended = () => {
+    // Reset video
+    video.currentTime = 0;
     // Increment rec_index on video end.
     rec_index++;
-    // If there are more videos to play perform another recursive call, otherwise pause.
+    // If there are more videos to play perform another recursive call, otherwise, pause the playback loop
     if (rec_index < recordings.length) {
       playVideos();
     } else {
@@ -110,17 +113,6 @@ function restart() {
 }
 
 /**
- * Sets the play button's class depending on isPlaying's status.
- */
-function setPlayButtonClass() {
-  if (isPlaying) {
-    playButton.className = 'btn-settings fas fa-pause fa-sm';
-  } else {
-    playButton.className = 'btn-settings fas fa-play fa-sm';
-  }
-}
-
-/**
  * Pauses scrubber and sets isPlaying to false.
  */
 export function pause() {
@@ -129,4 +121,33 @@ export function pause() {
   pauseScrubber();
   isPlaying = false;
   setPlayButtonClass();
+}
+
+/**
+ * Goes to a specified time in the playback loop.
+ * @param {*} time the desired time in the playback loop in seconds
+ */
+export async function seekTime(time) {
+  // Loop through the playback array and find the video at the desired time
+  let durationSum = 0, duration = 0, index = 0;
+  while (durationSum <= time) {
+    duration = await getBlobDuration(recordings[index].src);
+    durationSum += duration;
+    index++;
+  }
+
+  let timeInVideo = time - (durationSum - duration);
+  rec_index = index-1;
+  recordings[rec_index].currentTime = timeInVideo;
+}
+
+/**
+ * Sets the play button's class depending on isPlaying's status.
+ */
+function setPlayButtonClass() {
+  if (isPlaying) {
+    playButton.className = 'btn-settings fas fa-pause fa-sm';
+  } else {
+    playButton.className = 'btn-settings fas fa-play fa-sm';
+  }
 }

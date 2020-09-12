@@ -1,5 +1,5 @@
+import { pause, seekTime } from "../playback/playback.js";
 import { getTimelineElementWidth, totalTime } from "./timeline.js";
-import { pause } from "../playback/playback.js";
 
 /**
  * Makes the provided element draggable by click and hold.
@@ -16,7 +16,7 @@ export function dragScrubber(scrubber) {
     document.onmouseup = closeDragElement;
     // Call a function whenever the cursor moves
     document.onmousemove = elementDrag;
-    // Pause playback
+    // Pause playback loop
     pause();
   }
 
@@ -46,17 +46,17 @@ export function dragScrubber(scrubber) {
     document.onmousemove = null;
   
     const scrubberPos = scrubber.style.left;
-    // 500 ms delay to confirm the desired time
+    // 500 ms delay to ensure user has stopped seeking
     setTimeout(() => {
-      seekTime(scrubberPos);
+      getTimeFromPos(scrubberPos);
     }, 500);
   }
 
-  function seekTime(previousPos) {
+  function getTimeFromPos(previousPos) {
     // If the scrubber position is the same after 500 ms
     if (previousPos === scrubber.style.left) {
-      const seekedTime = parseFloat(scrubber.style.left)/getTimelineElementWidth()
-      console.log(seekedTime);
+      const time = parseFloat(scrubber.style.left)/getTimelineElementWidth()
+      seekTime(time);
     }
   }
 }
