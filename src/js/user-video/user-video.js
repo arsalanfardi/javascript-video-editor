@@ -1,4 +1,4 @@
-import { dragElement } from './draggable.js';
+import { dragElement } from './draggable-video.js';
 import { resetTimer, startTimer } from '../timer/timer.js';
 import { createVideo } from './video-manager.js';
 

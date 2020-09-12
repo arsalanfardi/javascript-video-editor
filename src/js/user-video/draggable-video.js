@@ -30,7 +30,6 @@ export function dragElement(elmnt) {
     
     // Get the new position of the element
     const tgtRect = elmnt.getBoundingClientRect();
-    // console.log('tgt.left', tgtRect.left)
     
     // Prevent element from going beyond parent's bounds
     const pRect = elmnt.parentElement.getBoundingClientRect();

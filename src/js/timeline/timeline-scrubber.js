@@ -1,7 +1,8 @@
 import { isPlaying } from '../playback/playback.js';
 import { AdjustingInterval } from './adjusting-interval.js';
 import { totalTime, getTimelineElementWidth } from './timeline.js';
-import { dragElement } from '../user-video/draggable.js';
+import { dragElement } from '../user-video/draggable-video.js';
+import { dragScrubber } from './draggable-scrubber.js';
 
 const timelineScrubber = document.querySelector('.timeline-scrubber');
 dragElement(timelineScrubber)
@@ -11,6 +12,9 @@ let timelineElementWidth;
 
 // Original position
 timelineScrubber.style.left = '0';
+
+// Make scrubber draggable along x-axis
+dragScrubber(timelineScrubber);
 
 /**
  * Starts the scrubber by instantiating a new AdjustingInterval class.

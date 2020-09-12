@@ -68,7 +68,7 @@ function togglePlay() {
       startScrubber();
     } else {
       // Pause the current video
-      recordings[rec_index].pause();
+      // recordings[rec_index].pause();
       pause();
     }
   }
@@ -98,10 +98,6 @@ function playVideos() {
  */
 function restart() {
   // Ensure any current videos are paused
-  if (rec_index < recordings.length) {
-    recordings[rec_index].pause();
-  }
-
   pause();
   resetScrubber();
 
@@ -127,7 +123,9 @@ function setPlayButtonClass() {
 /**
  * Pauses scrubber and sets isPlaying to false.
  */
-function pause() {
+export function pause() {
+  // Pause the current video
+  if (rec_index < recordings.length) recordings[rec_index].pause();
   pauseScrubber();
   isPlaying = false;
   setPlayButtonClass();

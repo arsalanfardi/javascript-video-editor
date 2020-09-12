@@ -134,7 +134,7 @@ li {
 /* MAIN AREA */
 
 .main {
-  margin: 2rem 10rem;
+  margin: 2rem 10vw;
   display: flex;
   position: relative;
 }
