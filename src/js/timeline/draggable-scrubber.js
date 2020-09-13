@@ -44,19 +44,14 @@ export function dragScrubber(scrubber) {
     // stop moving when mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
-  
-    const scrubberPos = scrubber.style.left;
-    // 500 ms delay to ensure user has stopped seeking
-    setTimeout(() => {
-      getTimeFromPos(scrubberPos);
-    }, 500);
+
+    // Get the new time
+    getTimeFromPos();
   }
 
-  function getTimeFromPos(previousPos) {
+  function getTimeFromPos() {
     // If the scrubber position is the same after 500 ms
-    if (previousPos === scrubber.style.left) {
-      const time = parseFloat(scrubber.style.left)/getTimelineElementWidth()
-      seekTime(time);
-    }
+    const time = parseFloat(scrubber.style.left)/getTimelineElementWidth()
+    seekTime(time);
   }
 }

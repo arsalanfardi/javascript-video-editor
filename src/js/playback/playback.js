@@ -2,6 +2,7 @@ import { moveScrubberByAmount, pauseScrubber, resetScrubber, startScrubber, move
 import { getTimelineElementWidth } from '../timeline/timeline.js';
 import { getCumulativeWidthByIndex } from '../user-video/video-manager.js';
 import getBlobDuration from 'get-blob-duration';
+import { isLoading } from '../loading-spinner/loading-spinner.js';
 
 /** Array of recorded video elements */
 export let recordings = [];
@@ -83,8 +84,6 @@ function playVideos() {
   video.play();
   // Once video ends play the next video or pause if at the end
   video.onended = () => {
-    // Reset video
-    video.currentTime = 0;
     // Increment rec_index on video end.
     rec_index++;
     // If there are more videos to play perform another recursive call, otherwise, pause the playback loop
@@ -105,9 +104,7 @@ function restart() {
   resetScrubber();
 
   // Reset each video element to the beginning
-  recordings.forEach(video =>
-    video.currentTime = 0
-  );
+  resetVideos();
 
   rec_index = 0;
 }
@@ -128,17 +125,38 @@ export function pause() {
  * @param {*} time the desired time in the playback loop in seconds
  */
 export async function seekTime(time) {
-  // Loop through the playback array and find the video at the desired time
+  if (recordings.length === 0) return;
+
+  // Start loading spinner
+  isLoading(true, document.querySelector('.timeline'));
+
+  // Reset videos to account for rewinding
+  resetVideos();
+
+  // Loop through the playback array and find the video at the specified time
   let durationSum = 0, duration = 0, index = 0;
-  while (durationSum <= time) {
+  while (index < recordings.length) {
     duration = await getBlobDuration(recordings[index].src);
     durationSum += duration;
+    // Exit loop once the sum of the durations has reached or surpassed the specified time
+    if (durationSum >= time) break;
     index++;
   }
 
   let timeInVideo = time - (durationSum - duration);
-  rec_index = index-1;
+  rec_index = index;
   recordings[rec_index].currentTime = timeInVideo;
+
+  isLoading(false, document.querySelector('.timeline'));
+}
+
+/**
+ * Resets all videos in the recordings array by setting their current time to 0.
+ */
+function resetVideos() {
+  recordings.forEach(video =>
+    video.currentTime = 0
+  );
 }
 
 /**
