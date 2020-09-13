@@ -4,11 +4,18 @@ import { extractFrames } from './clip-generator.js';
 import { isLoading } from '../loading-spinner/loading-spinner.js';
 import { addRecording, recordings, removeRecording } from '../playback/playback.js';
 import { decrementTotalTime, getTimelineElementWidth, incrementTotalTime } from '../timeline/timeline.js';
+import tippy from 'tippy.js';
 
 const videoTimeline = document.querySelector('.video-timeline');
+const deleteBtn = document.querySelector('#delete');
 let duration;
 let selectedVideo;
-document.querySelector('#delete').addEventListener('click', deleteVideo);
+deleteBtn.addEventListener('click', deleteVideo);
+
+tippy(deleteBtn, {
+  content: 'Delete',
+  arrow: false
+});
 
 /**
  * Asynchronous function to create an HTML video element of appropriate width and append it to the video timeline.

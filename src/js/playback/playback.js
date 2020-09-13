@@ -3,6 +3,7 @@ import { getTimelineElementWidth } from '../timeline/timeline.js';
 import { getCumulativeWidthByIndex } from '../user-video/video-manager.js';
 import getBlobDuration from 'get-blob-duration';
 import { isLoading } from '../loading-spinner/loading-spinner.js';
+import tippy from 'tippy.js';
 
 /** Array of recorded video elements */
 export let recordings = [];
@@ -11,11 +12,21 @@ let rec_index = 0;
 /** Playing status */
 export let isPlaying = false;
 
-const playButton = document.querySelector('#play');
-const restartButton = document.querySelector('#restart');
+const playBtn = document.querySelector('#play');
+const restartBtn = document.querySelector('#restart');
 
-playButton.addEventListener('click', togglePlay);
-restartButton.addEventListener('click', restart)
+playBtn.addEventListener('click', togglePlay);
+restartBtn.addEventListener('click', restart)
+
+tippy(restartBtn, {
+  content: 'Restart',
+  arrow: false
+});
+
+tippy(playBtn, {
+  content: 'Play',
+  arrow: false
+});
 
 /**
  * Adds a new video element to the recordings array.
@@ -65,7 +76,7 @@ function togglePlay() {
   if (recordings.length != 0 && rec_index < recordings.length) {
     isPlaying = !isPlaying;
     if (isPlaying) {
-      setPlayButtonClass();
+      setPlayBtnClass();
       playVideos();
       startScrubber();
     } else {
@@ -117,7 +128,7 @@ export function pause() {
   if (rec_index < recordings.length) recordings[rec_index].pause();
   pauseScrubber();
   isPlaying = false;
-  setPlayButtonClass();
+  setPlayBtnClass();
 }
 
 /**
@@ -162,10 +173,12 @@ function resetVideos() {
 /**
  * Sets the play button's class depending on isPlaying's status.
  */
-function setPlayButtonClass() {
+function setPlayBtnClass() {
   if (isPlaying) {
-    playButton.className = 'btn-settings fas fa-pause fa-sm';
+    playBtn.className = 'btn-settings fas fa-pause fa-sm';
+    playBtn._tippy.setContent('Pause');
   } else {
-    playButton.className = 'btn-settings fas fa-play fa-sm';
+    playBtn.className = 'btn-settings fas fa-play fa-sm';
+    playBtn._tippy.setContent('Play');
   }
 }

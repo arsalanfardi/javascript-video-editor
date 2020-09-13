@@ -1,6 +1,7 @@
 import { dragElement } from './draggable-video.js';
 import { resetTimer, startTimer } from '../timer/timer.js';
 import { createVideo } from './video-manager.js';
+import tippy from 'tippy.js';
 
 /** Default constraints used on application start */
 let defaultConstraints = { video: true, audio: true };
@@ -14,6 +15,11 @@ let currentStream;
 let recording = false;
 /** The MediaRecorder object responsible for capturing the stream */
 let mediaRecorder;
+
+tippy(recordBtn, {
+  content: 'Record',
+  arrow: false
+});
 
 /**
  * Initiates the retrieval of user's media sources and makes the user video element draggable.
@@ -64,12 +70,14 @@ function toggleRecord() {
     mediaRecorder.start();
     recording = true;
     recordBtn.className = 'fas fa-square fa-sm';
+    recordBtn._tippy.setContent('Stop');
     userVideo.style.border = '1px solid red';
     startTimer();
   } else {
     mediaRecorder.stop()
     recording = false;
     recordBtn.className = 'fas fa-circle fa-sm';
+    recordBtn._tippy.setContent('Record');
     userVideo.style.border = 'none';
     resetTimer();
   }

@@ -1,4 +1,5 @@
 import { recalculateScrubberPosition } from './timeline-scrubber';
+import tippy from 'tippy.js';
 
 const container = document.querySelector('.seconds-timeline');
 const timelineElement = document.querySelector('#timeline-element');
@@ -10,6 +11,16 @@ const zoomOutBtn = document.querySelector('#zoomOut');
 export let totalTime = 0;
 /** The length of the timeline in seconds, initially set at 60. */
 let timelineLength = 60;
+
+tippy(zoomInBtn, {
+  content: 'Zoom in',
+  arrow: false
+});
+
+tippy(zoomOutBtn, {
+  content: 'Zoom out',
+  arrow: false
+});
 
 /**
  * Initializes the timeline by replicating the timeline element 60 times and appends a seconds value to each one.
