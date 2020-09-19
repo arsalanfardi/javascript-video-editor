@@ -36,6 +36,11 @@ export function addRecording(videoElement) {
   recordings.push(videoElement);
 }
 
+/**
+ * Removes a recording and adjusts the scrubber position accordingly.
+ * @param {*} index The index of the video to be removed
+ * @param {*} duration The duration of the video to be removed
+ */
 export function removeRecording(index, duration) {
   if (index > -1) {
     if (index === rec_index) {

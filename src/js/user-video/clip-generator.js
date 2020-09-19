@@ -3,8 +3,15 @@ import { isLoading } from '../loading-spinner/loading-spinner.js';
 
 const videoTimeline = document.querySelector('.video-timeline');
 
+/**
+ * Extracts frames from the provided video by drawing to canvas at a preset interval.
+ * @param {*} video The video to extract frames from
+ * @param {*} duration The duration of the video
+ * @param {*} width The width of the video
+ */
 export function extractFrames(video, duration, width) {
   let seekResolve;
+
   const seekResolver = async function () {
     if (seekResolve) seekResolve();
   }
@@ -20,9 +27,10 @@ export function extractFrames(video, duration, width) {
     canvas.height = h;
 
     let frames = [];
-    let interval = 2;
+    let interval = 2; // The seconds interval at which frames are extracted
     let currentTime = 0;
-  
+    
+    // Loop through the video and draw frames to the canvas
     while (currentTime < duration) {
       this.currentTime = currentTime;
       await new Promise(r => seekResolve = r);
@@ -43,6 +51,12 @@ export function extractFrames(video, duration, width) {
   });
 }
 
+/**
+ * Generates a video clip div element from the extracted frames.
+ * @param {*} frames The array of extracted frames
+ * @param {*} width The required width of the video frame
+ * @param {*} videoDuration The duration of the video
+ */
 function generateVideoClip(frames, width, videoDuration) {
   // Create new video clip element
   const videoClipElem = document.createElement('div');

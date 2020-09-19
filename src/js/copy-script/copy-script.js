@@ -18,10 +18,16 @@ tippy(copyBtn, {
   }
 });
 
+/**
+ * Adds event listener to the copy button.
+ */
 export function prepareCopy() {
   copyBtn.addEventListener('click', copyScript);
 }
 
+/**
+ * Copies the script upon clicking of the copy button.
+ */
 function copyScript() {
   const script = document.querySelector('#script-body').innerHTML;
   // Create temporary text area to allow text to be copied

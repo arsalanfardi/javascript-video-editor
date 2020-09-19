@@ -64,7 +64,9 @@ function createMediaRecorder(mediaStream) {
   recordVideo(mediaRecorder);
 }
 
-/** Toggles starting and stopping of recording through the MediaRecorder object */
+/** 
+ * Toggles starting and stopping of recording through the MediaRecorder object 
+ */
 function toggleRecord() {
   if (!recording) {
     mediaRecorder.start();

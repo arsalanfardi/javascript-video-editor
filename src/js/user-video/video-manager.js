@@ -60,6 +60,9 @@ function createVideoElement(videoUrl, width) {
   return newVideo;
 }
 
+/**
+ * Highlights the selected video clip.
+ */
 export function selectVideoClip() {
   let videoClipElem = event.target;
   // If an img element is selected grab its parent element 
