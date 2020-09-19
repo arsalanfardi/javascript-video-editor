@@ -8,7 +8,7 @@ let selectedConstraints = { video: true, audio: true };
 /** The constraints for user testing purposes which may not necessarily be saved */
 let testConstraints = { video: true, audio: true };
 const settingsBtn = document.querySelector('#settings');
-const settingsVideo = document.querySelector('#settingsUserVideo');
+const settingsVideo = document.querySelector('#settings-user-video');
 const audioSelect = document.querySelector('#audio-input');
 const videoSelect = document.querySelector('#video-input');
 const settingsPanel = document.querySelector('.settings-panel');

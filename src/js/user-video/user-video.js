@@ -6,7 +6,7 @@ import tippy from 'tippy.js';
 /** Default constraints used on application start */
 let defaultConstraints = { video: true, audio: true };
 /** User video element */
-let userVideo = document.querySelector('#userVideo');
+let userVideo = document.querySelector('#user-video');
 /** Recording button */
 let recordBtn = document.getElementById('record');
 /** The current media stream */

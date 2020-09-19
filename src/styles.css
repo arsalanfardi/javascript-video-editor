@@ -42,6 +42,8 @@
   to { -webkit-transform: rotate(360deg); }
 }
 
+
+
 /* NAVBAR */
 
 header {
@@ -150,12 +152,12 @@ li {
   max-width: 50vw;
 }
 
-#userVideo {
+#user-video {
   position: absolute;
   top: 45%;
   right: 35%;
   /* Maintain native aspect ratio of camera */
-	width: 12.5%;
+	width: 15%;
   height: auto;
   cursor: move;
   background-color: black;
@@ -237,7 +239,7 @@ li {
   position: relative;
 }
 
-#settingsUserVideo {
+#settings-user-video {
   width: 100%;
   height: auto;
   min-height: 223.5px;
@@ -484,4 +486,88 @@ li {
   cursor: col-resize;
   position: absolute;
   overflow: auto;
+}
+
+/* RESPONSIVENESS */
+@media only screen and (max-width: 576px) {
+  header {
+    margin: 1.25rem 0.75rem;
+  }
+
+  .nav-options, .footer, #user-video {
+    display: none;
+  }
+
+  .request-info {
+    vertical-align: bottom;
+  }
+
+  #title, #requester {
+    max-width: 80vw;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .main {
+    display: inline-block;
+    margin: 3rem auto;
+  }
+
+  .script {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-width: none;
+    width: 90%;
+    padding-right: 0;
+    max-height: 30vh;
+    scrollbar-width: thin;
+    margin: 2rem auto;
+  }
+
+  .video-container {
+      display: flex;
+  }
+
+  #sampleVideo {
+      width: 90%;
+      height: auto;
+      max-width: none;
+      margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 992px) { 
+  .main {
+    display: inline-block;
+    margin: 2rem auto;
+  }
+
+  .script {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-width: none;
+    width: 65%;
+    padding-right: 0;
+    max-height: 25vh;
+    scrollbar-width: thin;
+    margin: 2rem auto;
+  }
+
+  .video-container {
+    display: flex;
+  }
+
+  #sampleVideo {
+    width: 65%;
+    height: auto;
+    max-width: none;
+    margin: 0 auto;
+  }
+
+  #user-video {
+    top: 20%;
+    right: 15%;
+    width: 15%;
+  }
 }
