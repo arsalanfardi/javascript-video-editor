@@ -1,5 +1,6 @@
-import { pause, seekTime } from "../playback/playback.js";
+import { pause } from "../playback/playback.js";
 import { getTimelineElementWidth, totalTime } from "./timeline.js";
+import { getTimeFromPos } from "./timeline-scrubber.js";
 
 /**
  * Makes the provided element draggable by click and hold.
@@ -47,11 +48,5 @@ export function dragScrubber(scrubber) {
 
     // Get the new time
     getTimeFromPos();
-  }
-
-  function getTimeFromPos() {
-    // If the scrubber position is the same after 500 ms
-    const time = parseFloat(scrubber.style.left)/getTimelineElementWidth()
-    seekTime(time);
   }
 }

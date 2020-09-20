@@ -155,15 +155,27 @@ export async function seekTime(time) {
     duration = await getBlobDuration(recordings[index].src);
     durationSum += duration;
     // Exit loop once the sum of the durations has reached or surpassed the specified time
-    if (durationSum >= time) break;
+    if (durationSum >= time || index === recordings.length-1) break;
     index++;
   }
 
   let timeInVideo = time - (durationSum - duration);
   rec_index = index;
+  console.log(index)
   recordings[rec_index].currentTime = timeInVideo;
-
   isLoading(false, document.querySelector('.timeline'));
+}
+
+/**
+ * Moves a video element in recordings to a new index
+ * @param {*} oldIndex The original index of the element in the recordings array
+ * @param {*} newIndex The new index of the element in the recordings array
+ */
+export function moveRecording(oldIndex, newIndex) {
+  if (oldIndex >-1 && newIndex > -1) {
+    // Remove video from the previous index and add it back in at the new index
+    recordings.splice(newIndex, 0, recordings.splice(oldIndex, 1)[0])
+  }
 }
 
 /**

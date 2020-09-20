@@ -1,11 +1,9 @@
-import { isPlaying } from '../playback/playback.js';
+import { isPlaying, seekTime } from '../playback/playback.js';
 import { AdjustingInterval } from './adjusting-interval.js';
 import { totalTime, getTimelineElementWidth } from './timeline.js';
-import { dragElement } from '../user-video/draggable-video.js';
 import { dragScrubber } from './draggable-scrubber.js';
 
 const timelineScrubber = document.querySelector('.timeline-scrubber');
-dragElement(timelineScrubber)
 let scrubberInterval;
 let reverseScrubberInterval;
 let timelineElementWidth;
@@ -106,3 +104,11 @@ function translateScrubber() {
   }
 }
 
+/**
+ * Gets the time from the current position of the scrubber, and seeks that time on the playback loop.
+ */
+export function getTimeFromPos() {
+  // If the scrubber position is the same after 500 ms
+  const time = parseFloat(timelineScrubber.style.left)/getTimelineElementWidth()
+  seekTime(time);
+}

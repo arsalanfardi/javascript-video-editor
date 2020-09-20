@@ -33,6 +33,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@shopify/draggable": "^1.0.0-beta.8",
     "get-blob-duration": "^1.1.2",
     "tippy.js": "^6.2.6"
   }
