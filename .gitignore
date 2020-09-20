@@ -1,4 +1,5 @@
-assets
+assets/*
+!assets/readme
 eslintrc.json
 node_modules
 sample-video.mp4
