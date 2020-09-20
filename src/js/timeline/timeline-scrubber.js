@@ -85,7 +85,7 @@ function reverseTranslateScrubber() {
     clearInterval(reverseScrubberInterval);
     timelineScrubber.style.left = '0';
   } else {
-    timelineScrubber.style.left = (left-6.8*2) + 'px';
+    timelineScrubber.style.left = (left-100) + 'px';
   }
 }
 

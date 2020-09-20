@@ -53,7 +53,7 @@ function zoomTimeline() {
  */
 function zoomInTimeline(ticks, currentMargin) {
   // rem value of maximum zoom
-  const maxZoom = 2.5;
+  const maxZoom = 2;
 
   if (currentMargin < maxZoom) {
     // Ensure zoom in button is enabled
