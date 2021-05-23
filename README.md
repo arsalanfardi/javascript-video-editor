@@ -1,5 +1,5 @@
-# Dubly Video Sharing Application
-A file sharing and video editing tool made entirely in JavaScript providing a medium to share content between Dubly and their users. Users will receive the original video and a script, and will have the ability to record themselves dubbing the video solely in this single application. The application provides convenient editing features to optimize the recording experience and ensure the final result meets the user's satisfaction. A brief overview of features can be found below.
+# Video Editor and Recorder JavaScript Application
+A video recording and editing tool made in JavaScript providing a medium to record voiceovers entirely in the brower. Users will receive the original video and a script, and will have the ability to record themselves dubbing the video solely in this single application. The application provides convenient editing features to optimize the recording experience and ensure the final result meets the user's satisfaction. A brief overview of features can be found below.
 
 ![Dubly Video Sharing Application](assets/readme/application.png)
 
@@ -52,4 +52,4 @@ The application is built with Webpack, therefore running it in a development env
 
 A kanban board on Github was used to track the progress and outline any remaining tasks.
 
-https://github.com/arsalanfardi/dubly-app/projects/1
+https://github.com/arsalanfardi/javascript-video-editor/projects/1
